@@ -1,0 +1,3245 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Posts WhatsApp + Grille Tarifaire — Songnia Tresor</title>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@400;500;600;700;800&family=Instrument+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0e1117;
+    --surface: #161b27;
+    --surface2: #1e2536;
+    --border: #2a3245;
+    --accent: #f5a623;
+    --accent2: #3ecf8e;
+    --accent3: #e8445a;
+    --text: #eef0f6;
+    --muted: #7c8db5;
+    --white: #ffffff;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Instrument Sans', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+  }
+
+  /* ===== HERO ===== */
+  .hero {
+    padding: 70px 40px 50px;
+    max-width: 1080px;
+    margin: 0 auto;
+    position: relative;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--accent), var(--accent2), var(--accent3));
+  }
+
+  .hero-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(245,166,35,0.12);
+    border: 1px solid rgba(245,166,35,0.3);
+    color: var(--accent);
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 6px 16px;
+    border-radius: 2px;
+    margin-bottom: 28px;
+  }
+
+  .hero h1 {
+    font-family: 'Bricolage Grotesque', sans-serif;
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    font-weight: 800;
+    line-height: 1.1;
+    letter-spacing: -0.03em;
+    margin-bottom: 16px;
+  }
+
+  .hero h1 em {
+    font-style: normal;
+    color: var(--accent);
+  }
+
+  .hero p {
+    font-size: 15px;
+    color: var(--muted);
+    max-width: 560px;
+    line-height: 1.7;
+  }
+
+  .hero-meta {
+    display: flex;
+    gap: 30px;
+    margin-top: 36px;
+    padding-top: 36px;
+    border-top: 1px solid var(--border);
+  }
+
+  .meta-item {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .meta-num {
+    font-family: 'Bricolage Grotesque', sans-serif;
+    font-size: 1.8rem;
+    font-weight: 800;
+    color: var(--accent2);
+    line-height: 1;
+  }
+
+  .meta-label {
+    font-size: 11px;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  /* ===== SECTION ===== */
+  .section {
+    max-width: 1080px;
+    margin: 0 auto;
+    padding: 0 40px;
+  }
+
+  .section-title {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 32px;
+    margin-top: 60px;
+  }
+
+  .section-title h2 {
+    font-family: 'Bricolage Grotesque', sans-serif;
+    font-size: 1.5rem;
+    font-weight: 800;
+  }
+
+  .section-title .num {
+    width: 36px;
+    height: 36px;
+    background: var(--accent);
+    color: #000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Bricolage Grotesque', sans-serif;
+    font-weight: 800;
+    font-size: 14px;
+    flex-shrink: 0;
+    border-radius: 2px;
+  }
+
+  .divider {
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  /* ===== POSTS GRID ===== */
+  .posts-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+
+  .posts-grid .post-card:first-child {
+    grid-column: 1 / -1;
+  }
+
+  .post-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    overflow: hidden;
+    position: relative;
+    transition: border-color 0.2s, transform 0.2s;
+  }
+
+  .post-card:hover {
+    border-color: var(--accent);
+    transform: translateY(-2px);
+  }
+
+  .post-card-header {
+    padding: 20px 24px 16px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .post-day {
+    font-family: 'Bricolage Grotesque', sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+  }
+
+  .post-day.d1 { color: var(--accent); }
+  .post-day.d2 { color: var(--accent2); }
+  .post-day.d3 { color: #a78bfa; }
+  .post-day.d4 { color: var(--accent3); }
+  .post-day.d5 { color: #38bdf8; }
+
+  .post-topic {
+    font-size: 11px;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    color: var(--muted);
+    padding: 4px 10px;
+    border-radius: 2px;
+    letter-spacing: 0.5px;
+  }
+
+  .post-card-body {
+    padding: 24px;
+  }
+
+  .post-title {
+    font-family: 'Bricolage Grotesque', sans-serif;
+    font-size: 1rem;
+    font-weight: 700;
+    margin-bottom: 16px;
+    line-height: 1.3;
+  }
+
+  .post-text {
+    background: var(--surface2);
+    border-left: 3px solid var(--accent);
+    padding: 20px;
+    border-radius: 0 4px 4px 0;
+    font-size: 13.5px;
+    line-height: 1.85;
+    color: #c8d0e4;
+    white-space: pre-wrap;
+    word-break: break-word;
+  }
+
+  .post-card:nth-child(2) .post-text { border-left-color: var(--accent2); }
+  .post-card:nth-child(3) .post-text { border-left-color: #a78bfa; }
+  .post-card:nth-child(4) .post-text { border-left-color: var(--accent3); }
+  .post-card:nth-child(5) .post-text { border-left-color: #38bdf8; }
+
+  .copy-btn {
+    margin-top: 16px;
+    background: transparent;
+    border: 1px solid var(--border);
+    color: var(--muted);
+    font-family: 'Bricolage Grotesque', sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    padding: 8px 18px;
+    cursor: pointer;
+    border-radius: 2px;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .copy-btn:hover { border-color: var(--accent); color: var(--accent); }
+  .copy-btn.copied { border-color: var(--accent2); color: var(--accent2); }
+
+  /* ===== GRILLE TARIFAIRE ===== */
+  .tarif-section {
+    max-width: 1080px;
+    margin: 0 auto;
+    padding: 0 40px 80px;
+  }
+
+  .tarif-hero {
+    background: linear-gradient(135deg, #1a1f2e 0%, #0d1117 100%);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 50px;
+    margin-bottom: 24px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .tarif-hero::before {
+    content: '';
+    position: absolute;
+    top: -60px; right: -60px;
+    width: 200px; height: 200px;
+    background: radial-gradient(circle, rgba(245,166,35,0.15) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+
+  .tarif-hero::after {
+    content: '';
+    position: absolute;
+    bottom: -40px; left: -40px;
+    width: 160px; height: 160px;
+    background: radial-gradient(circle, rgba(62,207,142,0.1) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+
+  .tarif-badge {
+    display: inline-block;
+    background: var(--accent);
+    color: #000;
+    font-family: 'Bricolage Grotesque', sans-serif;
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 5px 14px;
+    margin-bottom: 24px;
+    border-radius: 2px;
+  }
+
+  .tarif-hero h2 {
+    font-family: 'Bricolage Grotesque', sans-serif;
+    font-size: clamp(1.6rem, 3.5vw, 2.5rem);
+    font-weight: 800;
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+    margin-bottom: 10px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .tarif-hero p {
+    font-size: 14px;
+    color: var(--muted);
+    position: relative;
+    z-index: 1;
+  }
+
+  .tarif-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    margin-bottom: 16px;
+  }
+
+  .tarif-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 28px 24px;
+    position: relative;
+    transition: border-color 0.2s, transform 0.2s;
+  }
+
+  .tarif-card:hover {
+    border-color: var(--accent);
+    transform: translateY(-3px);
+  }
+
+  .tarif-card.highlight {
+    background: linear-gradient(135deg, #1e2a1a 0%, #162110 100%);
+    border-color: var(--accent2);
+  }
+
+  .tarif-card.highlight:hover {
+    border-color: var(--accent2);
+  }
+
+  .tarif-card.top {
+    background: linear-gradient(135deg, #1e2015 0%, #191a0e 100%);
+    border-color: var(--accent);
+  }
+
+  .best-tag {
+    position: absolute;
+    top: -11px;
+    left: 20px;
+    background: var(--accent2);
+    color: #000;
+    font-family: 'Bricolage Grotesque', sans-serif;
+    font-size: 9px;
+    font-weight: 800;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 3px 10px;
+    border-radius: 2px;
+  }
+
+  .tarif-icon {
+    font-size: 1.8rem;
+    margin-bottom: 14px;
+    display: block;
+  }
+
+  .tarif-name {
+    font-family: 'Bricolage Grotesque', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 8px;
+    line-height: 1.3;
+  }
+
+  .tarif-desc {
+    font-size: 12px;
+    color: var(--muted);
+    line-height: 1.6;
+    margin-bottom: 20px;
+    min-height: 40px;
+  }
+
+  .tarif-price {
+    font-family: 'Bricolage Grotesque', sans-serif;
+    font-size: 1.9rem;
+    font-weight: 800;
+    color: var(--accent);
+    line-height: 1;
+  }
+
+  .tarif-card.highlight .tarif-price { color: var(--accent2); }
+
+  .tarif-unit {
+    font-size: 12px;
+    color: var(--muted);
+    font-weight: 400;
+    margin-left: 4px;
+  }
+
+  .tarif-delay {
+    font-size: 11px;
+    color: var(--muted);
+    margin-top: 6px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+
+  .tarif-includes {
+    list-style: none;
+    margin-top: 16px;
+    padding-top: 16px;
+    border-top: 1px solid var(--border);
+  }
+
+  .tarif-includes li {
+    font-size: 12px;
+    color: #9ba8c4;
+    padding: 4px 0;
+    padding-left: 18px;
+    position: relative;
+  }
+
+  .tarif-includes li::before {
+    content: '→';
+    position: absolute;
+    left: 0;
+    color: var(--accent2);
+    font-size: 10px;
+  }
+
+  /* RÈGLES */
+  .rules-box {
+    background: linear-gradient(135deg, #1a1520 0%, #140f1a 100%);
+    border: 1px solid rgba(232,68,90,0.3);
+    border-radius: 4px;
+    padding: 28px 30px;
+    margin-bottom: 16px;
+  }
+
+  .rules-box h3 {
+    font-family: 'Bricolage Grotesque', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: var(--accent3);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .rules-list {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+  }
+
+  .rule-item {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .rule-num {
+    font-family: 'Bricolage Grotesque', sans-serif;
+    font-size: 1.4rem;
+    font-weight: 800;
+    color: rgba(232,68,90,0.5);
+    line-height: 1;
+  }
+
+  .rule-text {
+    font-size: 12.5px;
+    color: #b0a0b8;
+    line-height: 1.55;
+  }
+
+  /* CONTACT CARD */
+  .contact-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 28px 30px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 30px;
+  }
+
+  .contact-card .contact-info h3 {
+    font-family: 'Bricolage Grotesque', sans-serif;
+    font-size: 1.1rem;
+    font-weight: 800;
+    margin-bottom: 6px;
+  }
+
+  .contact-card .contact-info p {
+    font-size: 13px;
+    color: var(--muted);
+  }
+
+  .contact-links {
+    display: flex;
+    gap: 10px;
+    flex-shrink: 0;
+  }
+
+  .contact-link {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    color: var(--text);
+    font-family: 'Bricolage Grotesque', sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    padding: 10px 18px;
+    text-decoration: none;
+    border-radius: 2px;
+    transition: all 0.2s;
+  }
+
+  .contact-link:hover { background: var(--accent); color: #000; border-color: var(--accent); }
+  .contact-link.green:hover { background: var(--accent2); color: #000; border-color: var(--accent2); }
+
+  /* COPY VISUAL BTN */
+  .copy-tarif-btn {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: transparent;
+    border: 1px solid var(--border);
+    color: var(--muted);
+    font-family: 'Bricolage Grotesque', sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 2px;
+    transition: all 0.2s;
+    margin-top: 20px;
+  }
+
+  .copy-tarif-btn:hover { border-color: var(--accent2); color: var(--accent2); }
+  .copy-tarif-btn.copied { border-color: var(--accent2); color: var(--accent2); }
+
+  /* RESPONSIVE */
+  @media (max-width: 768px) {
+    header, .section, .tarif-section { padding-left: 20px; padding-right: 20px; }
+    .hero { padding: 50px 20px 40px; }
+    .posts-grid { grid-template-columns: 1fr; }
+    .posts-grid .post-card:first-child { grid-column: 1; }
+    .tarif-grid { grid-template-columns: 1fr; }
+    .rules-list { grid-template-columns: 1fr; }
+    .contact-card { flex-direction: column; align-items: flex-start; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-label">📲 Contenu WhatsApp Business — Semaine 1</div>
+  <h1>5 Posts de <em>Valeur</em><br>+ Grille Tarifaire</h1>
+  <p>Contenu prêt à publier dans ton groupe WhatsApp dédié aux artisans. Copie, colle, publie. Chaque post est conçu pour créer de la confiance avant de vendre.</p>
+  <div class="hero-meta">
+    <div class="meta-item">
+      <div class="meta-num">5</div>
+      <div class="meta-label">Posts valeur</div>
+    </div>
+    <div class="meta-item">
+      <div class="meta-num">1</div>
+      <div class="meta-label">Grille tarifaire</div>
+    </div>
+    <div class="meta-item">
+      <div class="meta-num">7j</div>
+      <div class="meta-label">Plan semaine</div>
+    </div>
+    <div class="meta-item">
+      <div class="meta-num">0F</div>
+      <div class="meta-label">Coût outils</div>
+    </div>
+  </div>
+</div>
+
+<!-- POSTS -->
+<div class="section">
+  <div class="section-title">
+    <div class="num">01</div>
+    <h2>Les 5 Posts WhatsApp — Prêts à Copier</h2>
+    <div class="divider"></div>
+  </div>
+
+  <div class="posts-grid">
+
+    <!-- POST 1 -->
+    <div class="post-card">
+      <div class="post-card-header">
+        <span class="post-day d1">📅 Lundi — Post #1 · Bienvenue</span>
+        <span class="post-topic">Introduction</span>
+      </div>
+      <div class="post-card-body">
+        <div class="post-title">🎉 Message de lancement du groupe</div>
+        <div class="post-text" id="post1">👷 Bienvenue à tous dans ce groupe !
+
+Je suis Songnia Tresor, informaticien passionné de technologie.
+
+Ce groupe est fait pour VOUS — les artisans, électriciens, maçons, mécaniciens et autres professionnels du terrain qui veulent développer leur activité grâce au digital.
+
+📌 Ce que vous allez trouver ici :
+✅ Des astuces simples pour vous faire connaître en ligne
+✅ Des outils gratuits pour mieux gérer votre activité
+✅ Des conseils sur l'IA pour gagner du temps
+✅ Des idées pour attirer plus de clients
+
+❌ Pas de spam. Pas de pub inutile. Que de la valeur.
+
+Je publie 1 astuce par jour. Lisez, appliquez, et partagez vos questions librement.
+
+On commence demain 👇</div>
+        <button class="copy-btn" onclick="copyPost('post1', this)">📋 Copier ce post</button>
+      </div>
+    </div>
+
+    <!-- POST 2 -->
+    <div class="post-card">
+      <div class="post-card-header">
+        <span class="post-day d2">📅 Mardi — Post #2 · Astuce IA</span>
+        <span class="post-topic">Intelligence Artificielle</span>
+      </div>
+      <div class="post-card-body">
+        <div class="post-title">🤖 L'IA peut répondre à tes clients à ta place</div>
+        <div class="post-text" id="post2">💡 ASTUCE DU JOUR — L'IA gratuite pour les artisans
+
+Tu sais combien de temps tu perds à répondre aux mêmes questions ?
+➜ "Vous faites quoi exactement ?"
+➜ "C'est combien pour une installation ?"
+➜ "Vous êtes disponible quand ?"
+
+🔧 La solution : ChatGPT (gratuit sur ton téléphone)
+
+Voici comment l'utiliser MAINTENANT :
+1️⃣ Télécharge ChatGPT sur ton téléphone
+2️⃣ Écris lui : "Rédige-moi un message de réponse pour un client qui demande mes tarifs d'électricien"
+3️⃣ Copie la réponse, adapte-la et envoie à ton client
+
+⏱ Tu gagnes 10 à 15 min par client. Sur 5 clients par jour = 1h de gagnée.
+
+💬 Testez ça aujourd'hui et dites-moi ce que vous en pensez 👇</div>
+        <button class="copy-btn" onclick="copyPost('post2', this)">📋 Copier ce post</button>
+      </div>
+    </div>
+
+    <!-- POST 3 -->
+    <div class="post-card">
+      <div class="post-card-header">
+        <span class="post-day d3">📅 Mercredi — Post #3 · Présence en ligne</span>
+        <span class="post-topic">Visibilité digitale</span>
+      </div>
+      <div class="post-card-body">
+        <div class="post-title">📱 Pourquoi tes clients ne te trouvent pas</div>
+        <div class="post-text" id="post3">🔍 LA VÉRITÉ que peu d'artisans veulent entendre :
+
+Quand quelqu'un cherche un électricien à Douala sur son téléphone, QUI il trouve ?
+
+→ Pas le meilleur électricien
+→ Pas le plus sérieux
+→ Mais CELUI QUI A UNE PRÉSENCE EN LIGNE
+
+📊 La réalité aujourd'hui :
+• 7 personnes sur 10 cherchent un prestataire sur WhatsApp ou Google avant d'appeler
+• Un artisan avec une photo de profil pro + une description claire reçoit 3x plus de contacts
+• Un catalogue de services envoyé par WhatsApp convainc mieux qu'un simple "je fais ça"
+
+🎯 Ce que vous pouvez faire dès aujourd'hui GRATUITEMENT :
+✅ Mettre une vraie photo professionnelle sur WhatsApp
+✅ Écrire une description claire de vos services dans votre bio WhatsApp
+✅ Ajouter votre zone de travail et un horaire de contact
+
+Ces 3 actions = plus de crédibilité = plus de clients qui appellent.
+
+Vous voulez savoir comment faire ? Répondez "OUI" 👇</div>
+        <button class="copy-btn" onclick="copyPost('post3', this)">📋 Copier ce post</button>
+      </div>
+    </div>
+
+    <!-- POST 4 -->
+    <div class="post-card">
+      <div class="post-card-header">
+        <span class="post-day d4">📅 Jeudi — Post #4 · Outil gratuit</span>
+        <span class="post-topic">Canva pour artisans</span>
+      </div>
+      <div class="post-card-body">
+        <div class="post-title">🎨 L'outil que tout artisan devrait utiliser</div>
+        <div class="post-text" id="post4">🛠 OUTIL GRATUIT DU JOUR : Canva
+
+Tu n'as pas besoin de payer un graphiste pour créer des visuels professionnels.
+
+📲 Canva, c'est quoi ?
+→ Une application gratuite (dispo sur téléphone et PC)
+→ Tu choisis un modèle, tu modifies le texte et les couleurs
+→ Tu télécharges et tu envoies
+
+Ce que tu peux créer avec Canva GRATUITEMENT :
+✅ Une affiche de tes services à partager sur WhatsApp
+✅ Un catalogue de prestations avec tes prix
+✅ Une carte de visite numérique
+✅ Une bannière pour ton statut WhatsApp
+
+🔗 Télécharge sur : canva.com (ou cherche "Canva" dans ton App Store)
+
+👉 Astuce : Cherche "catalogue de services" dans la barre de recherche Canva. Tu auras des dizaines de modèles prêts à utiliser.
+
+Qui a déjà essayé Canva ? 👇</div>
+        <button class="copy-btn" onclick="copyPost('post4', this)">📋 Copier ce post</button>
+      </div>
+    </div>
+
+    <!-- POST 5 -->
+    <div class="post-card">
+      <div class="post-card-header">
+        <span class="post-day d5">📅 Vendredi — Post #5 · Transition douce vers les services</span>
+        <span class="post-topic">Témoignage + offre</span>
+      </div>
+      <div class="post-card-body">
+        <div class="post-title">⭐ Ce que le digital a changé pour un électricien de Douala</div>
+        <div class="post-text" id="post5">📖 Laissez-moi vous partager quelque chose de concret.
+
+Il y a quelques semaines, j'ai aidé un électricien de mon entourage. Il avait du talent, du travail, mais ses clients ne savaient pas vraiment ce qu'il faisait.
+
+On a créé ensemble :
+→ Un CV professionnel qui résume son parcours et ses compétences
+→ Un catalogue de services visuel avec ses prestations et ses tarifs
+→ Une présentation à partager directement par WhatsApp
+
+Résultat ?
+✅ Il envoie maintenant son catalogue à chaque nouveau contact
+✅ Il est pris plus au sérieux lors des devis
+✅ Ses clients le recommandent plus facilement
+
+Ce n'est pas de la magie. C'est juste de la professionnalisation.
+
+🎯 Si vous voulez la même chose pour votre activité, je suis disponible. On commence par discuter de ce dont vous avez besoin — sans engagement.
+
+📩 Envoyez-moi un message privé avec "CATALOGUE" et je vous explique comment ça fonctionne.</div>
+        <button class="copy-btn" onclick="copyPost('post5', this)">📋 Copier ce post</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- GRILLE TARIFAIRE -->
+<div class="tarif-section" style="margin-top: 60px;">
+
+  <div class="section-title" style="padding: 0;">
+    <div class="num" style="background: var(--accent2); color: #000;">02</div>
+    <h2>Grille Tarifaire — À Partager dans le Groupe</h2>
+    <div class="divider"></div>
+  </div>
+
+  <div style="margin-top: 32px;">
+
+    <div class="tarif-hero">
+      <div class="tarif-badge">💼 Services Digitaux pour Artisans</div>
+      <h2>Mes Prestations<br>& Tarifs Clairs</h2>
+      <p>Pas de surprise. Pas de négociation. Des prix fixes pour des livrables concrets.</p>
+    </div>
+
+    <div class="tarif-grid">
+
+      <div class="tarif-card">
+        <span class="tarif-icon">📄</span>
+        <div class="tarif-name">CV Professionnel</div>
+        <div class="tarif-desc">1 page soignée qui présente ton parcours et inspire confiance aux clients</div>
+        <div class="tarif-price">5 000 <span class="tarif-unit">F CFA</span></div>
+        <div class="tarif-delay">⏱ Livré en 24h</div>
+        <ul class="tarif-includes">
+          <li>Design moderne personnalisé</li>
+          <li>Format PDF + image WhatsApp</li>
+          <li>1 révision incluse</li>
+        </ul>
+      </div>
+
+      <div class="tarif-card highlight">
+        <div class="best-tag">⭐ Le plus demandé</div>
+        <span class="tarif-icon">📦</span>
+        <div class="tarif-name">Catalogue de Services</div>
+        <div class="tarif-desc">4 à 6 visuels qui présentent tes prestations, prix et zone d'intervention</div>
+        <div class="tarif-price">10 000 <span class="tarif-unit">F CFA</span></div>
+        <div class="tarif-delay">⏱ Livré en 48h</div>
+        <ul class="tarif-includes">
+          <li>4 à 6 visuels professionnels</li>
+          <li>Prêt à envoyer sur WhatsApp</li>
+          <li>Couleurs de ton activité</li>
+          <li>2 révisions incluses</li>
+        </ul>
+      </div>
+
+      <div class="tarif-card top">
+        <span class="tarif-icon">🚀</span>
+        <div class="tarif-name">Pack Complet</div>
+        <div class="tarif-desc">CV + Catalogue + Bio WhatsApp optimisée. Tout ce qu'il faut pour se professionnaliser</div>
+        <div class="tarif-price">20 000 <span class="tarif-unit">F CFA</span></div>
+        <div class="tarif-delay">⏱ Livré en 3 jours</div>
+        <ul class="tarif-includes">
+          <li>CV professionnel complet</li>
+          <li>Catalogue 6 visuels</li>
+          <li>Bio + photo WhatsApp Business</li>
+          <li>Conseils personnalisés offerts</li>
+        </ul>
+      </div>
+
+      <div class="tarif-card">
+        <span class="tarif-icon">✏️</span>
+        <div class="tarif-name">Mise à Jour / Révision</div>
+        <div class="tarif-desc">Modifier un document existant, changer les prix ou ajouter un service</div>
+        <div class="tarif-price">3 000 <span class="tarif-unit">F CFA</span></div>
+        <div class="tarif-delay">⏱ Livré en 12h</div>
+        <ul class="tarif-includes">
+          <li>Modification rapide</li>
+          <li>Nouveau fichier livré</li>
+        </ul>
+      </div>
+
+      <div class="tarif-card">
+        <span class="tarif-icon">🌐</span>
+        <div class="tarif-name">Mini Site Vitrine</div>
+        <div class="tarif-desc">Une page web avec tes services, photos et formulaire de contact</div>
+        <div class="tarif-price">30 000 <span class="tarif-unit">F CFA</span></div>
+        <div class="tarif-delay">⏱ Livré en 5 jours</div>
+        <ul class="tarif-includes">
+          <li>Site 1 page responsive</li>
+          <li>Hébergement gratuit inclus</li>
+          <li>Lien à partager partout</li>
+        </ul>
+      </div>
+
+      <div class="tarif-card" style="background: linear-gradient(135deg, #1a1e2e 0%, #131729 100%); border-style: dashed; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; gap: 12px;">
+        <div style="font-size: 2rem;">🤝</div>
+        <div style="font-family: 'Bricolage Grotesque', sans-serif; font-weight: 700; font-size: 0.95rem;">Un besoin spécifique ?</div>
+        <div style="font-size: 12px; color: var(--muted); line-height: 1.6;">Contacte-moi directement en message privé. Je fais un devis personnalisé en 30 minutes.</div>
+        <div style="font-size: 13px; color: var(--accent2); font-weight: 600;">→ Message privé gratuit</div>
+      </div>
+
+    </div>
+
+    <!-- RÈGLES -->
+    <div class="rules-box">
+      <h3>⚠️ Règles de fonctionnement</h3>
+      <div class="rules-list">
+        <div class="rule-item">
+          <div class="rule-num">01</div>
+          <div class="rule-text"><strong style="color: #e8a0aa;">Acompte de 50%</strong> requis avant de démarrer tout travail. Solde à la livraison via Orange Money ou MTN Money.</div>
+        </div>
+        <div class="rule-item">
+          <div class="rule-num">02</div>
+          <div class="rule-text"><strong style="color: #e8a0aa;">Brief écrit obligatoire</strong> — un message WhatsApp décrivant le besoin suffit. Pas de brief = pas de démarrage.</div>
+        </div>
+        <div class="rule-item">
+          <div class="rule-num">03</div>
+          <div class="rule-text"><strong style="color: #e8a0aa;">1 révision incluse</strong> par offre. Révision supplémentaire = 2 000 F CFA. Annoncé dès le départ, toujours.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CONTACT -->
+    <div class="contact-card">
+      <div class="contact-info">
+        <h3>Songnia Tresor Wilfried — Développeur & Consultant Digital</h3>
+        <p>Disponible pour vous accompagner dans votre professionnalisation digitale · Douala, Cameroun</p>
+      </div>
+      <div class="contact-links">
+        <a href="https://songnia-tresor.vercel.app/" target="_blank" class="contact-link">🌐 Portfolio</a>
+        <a href="https://github.com/Songnia/" target="_blank" class="contact-link green">💻 GitHub</a>
+      </div>
+    </div>
+
+    <!-- TEXTE COMEUP À COPIER POUR LA GRILLE -->
+    <button class="copy-tarif-btn" onclick="copyTarif(this)">
+      📋 Copier la grille tarifaire en texte (pour WhatsApp)
+    </button>
+
+    <div id="tarif-text" style="display:none">💼 MES TARIFS — SERVICES DIGITAUX POUR ARTISANS
+
+📄 CV Professionnel → 5 000 F CFA (livré en 24h)
+📦 Catalogue de Services (4-6 visuels) → 10 000 F CFA (livré en 48h)
+🚀 Pack Complet CV + Catalogue + Bio WhatsApp → 20 000 F CFA (livré en 3 jours)
+✏️ Mise à jour / Révision → 3 000 F CFA (livré en 12h)
+🌐 Mini Site Vitrine → 30 000 F CFA (livré en 5 jours)
+
+⚠️ CONDITIONS :
+→ Acompte 50% avant démarrage (Orange Money / MTN Money)
+→ Brief écrit obligatoire
+→ 1 révision incluse par offre
+
+💬 Pour commander ou poser une question → Message privé</div>
+
+  </div>
+</div>
+
+<!-- =============================================
+     SECTION 3 — POSTS D'ACHAT PAR OFFRE
+     ============================================= -->
+<div class="section" style="margin-top:70px; padding-bottom:20px;">
+  <div class="section-title">
+    <div class="num" style="background:var(--accent3);color:#fff;">03</div>
+    <h2>Posts de Vente — 2 par Offre · Orientés Achat</h2>
+    <div class="divider"></div>
+  </div>
+  <p style="font-size:13px;color:var(--muted);margin-bottom:36px;max-width:640px;">Chaque post contient le texte principal + les réponses adaptées à 3 types d'émotions : <span style="color:#f5a623">curiosité</span>, <span style="color:#e8445a">frustration/résistance</span> et <span style="color:#3ecf8e">intérêt chaud</span>. Copie et adapte selon la réaction reçue.</p>
+
+  <!-- ─── OFFRE 1 : CV ─── -->
+  <div class="offer-group">
+    <div class="offer-group-title">
+      <span class="offer-dot" style="background:var(--accent)"></span>
+      Offre 1 — CV Professionnel · 5 000 F CFA
+    </div>
+
+    <!-- Post A -->
+    <div class="sale-card">
+      <div class="sale-card-header">
+        <span class="sale-label" style="color:var(--accent)">Post A — Douleur &amp; Prise de conscience</span>
+        <button class="copy-btn" style="margin:0" onclick="copyPost('cv-a', this)">📋 Copier</button>
+      </div>
+      <div class="post-text" id="cv-a">😤 Combien de fois un client t'a regardé de travers parce que t'as rien à lui montrer ?
+
+Tu arrives sur un chantier. Le client te demande tes références. Tu réponds de vive voix. Il hoche la tête... et appelle quelqu'un d'autre.
+
+Pas parce que t'es moins bon. Mais parce que l'autre avait un CV. Un document. Quelque chose de concret à tenir dans les mains.
+
+📄 Un CV professionnel, c'est pas pour chercher un emploi.
+C'est pour dire à ton client : "Je suis sérieux. Voilà mon parcours, mes compétences, mes réalisations."
+
+En 24h, je te crée un CV d'une page qui inspire confiance.
+Prix fixe : 5 000 F CFA.
+
+Tu veux voir un exemple de ce que ça donne ? Réponds "EXEMPLE" 👇</div>
+
+      <!-- RÉPONSES ÉMOTIONNELLES -->
+      <div class="emotions-grid">
+        <div class="emotion-block curiosity">
+          <div class="emotion-title">💛 Curiosité — "C'est quoi exactement ?"</div>
+          <div class="emotion-example">"Ça ressemble à quoi ?"<br>"Tu fais comment ?"</div>
+          <div class="emotion-reply" id="cv-a-cur">👋 Bonne question !
+
+C'est un document d'une page, propre et professionnel, avec :
+→ Ton nom, ta spécialité, ta zone de travail
+→ Tes compétences principales
+→ Tes réalisations ou chantiers passés
+→ Tes contacts
+
+Je le crée avec un design adapté à ton métier. Tu le reçois en PDF + en image à envoyer sur WhatsApp.
+
+Tu veux que je t'envoie un exemple maintenant ?</div>
+          <button class="emotion-copy" onclick="copyPost('cv-a-cur', this)">📋 Copier cette réponse</button>
+        </div>
+
+        <div class="emotion-block frustration">
+          <div class="emotion-title">🔴 Résistance — "C'est trop cher" / "J'en ai pas besoin"</div>
+          <div class="emotion-example">"5000 pour un papier c'est beaucoup"<br>"Mes clients me connaissent déjà"</div>
+          <div class="emotion-reply" id="cv-a-fru">Je comprends ce que tu dis.
+
+Mais pose-toi cette question : combien tu perds quand un client choisit quelqu'un d'autre juste parce qu'il semblait plus professionnel ?
+
+Un seul chantier perdu = 10x le prix du CV.
+
+Et tes clients actuels, c'est bien. Mais les nouveaux ? Ceux qui te trouvent par recommandation et qui veulent être rassurés ?
+
+5 000 F c'est le prix d'un repas. Le CV lui, il travaille pour toi pendant des années.
+
+Je te fais voir un exemple, tu juges toi-même. 👇</div>
+          <button class="emotion-copy" onclick="copyPost('cv-a-fru', this)">📋 Copier cette réponse</button>
+        </div>
+
+        <div class="emotion-block hot">
+          <div class="emotion-title">🟢 Intérêt chaud — "Je suis intéressé"</div>
+          <div class="emotion-example">"Comment on fait ?"<br>"Tu es disponible quand ?"</div>
+          <div class="emotion-reply" id="cv-a-hot">Super ! 🔥
+
+Pour démarrer j'ai besoin de 3 choses de ta part :
+1️⃣ Ton nom complet et ta spécialité (ex: électricien, maçon…)
+2️⃣ Tes 3 à 5 compétences principales
+3️⃣ 2 ou 3 réalisations que tu es fier de mentionner
+
+Tu me les envoies par message, je démarre dans la foulée.
+Acompte de 2 500 F avant démarrage, solde à la livraison.
+
+On y va ? 💪</div>
+          <button class="emotion-copy" onclick="copyPost('cv-a-hot', this)">📋 Copier cette réponse</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Post B -->
+    <div class="sale-card">
+      <div class="sale-card-header">
+        <span class="sale-label" style="color:var(--accent)">Post B — Urgence &amp; Comparaison</span>
+        <button class="copy-btn" style="margin:0" onclick="copyPost('cv-b', this)">📋 Copier</button>
+      </div>
+      <div class="post-text" id="cv-b">🔥 Pendant que tu hésites, quelqu'un d'autre dans ton quartier prend tes clients.
+
+Je ne dis pas ça pour faire peur. Je dis ça parce que c'est la réalité du marché aujourd'hui.
+
+Les artisans qui ont un CV professionnel :
+✅ Sont rappelés en premier
+✅ Obtiennent des devis acceptés plus facilement
+✅ Sont recommandés avec plus de confiance
+
+Ceux qui n'en ont pas :
+❌ Passent après les autres
+❌ Doivent baisser leurs prix pour convaincre
+❌ Perdent des contrats sans savoir pourquoi
+
+Je te crée ton CV en 24h pour 5 000 F.
+Pas de rendez-vous. Tout se fait sur WhatsApp.
+
+Qui veut son CV cette semaine ? Répondez 🙋 ci-dessous.</div>
+
+      <div class="emotions-grid">
+        <div class="emotion-block curiosity">
+          <div class="emotion-title">💛 Curiosité — "Ça change vraiment quelque chose ?"</div>
+          <div class="emotion-example">"Tu es sûr que ça aide ?"<br>"J'ai jamais eu ça pourtant ça marche"</div>
+          <div class="emotion-reply" id="cv-b-cur">Bonne question, soyons honnêtes.
+
+Si tu travailles déjà à plein temps avec beaucoup de clients, peut-être que tu n'en as pas besoin maintenant.
+
+Mais si tu veux :
+→ Attirer des clients plus sérieux qui paient mieux
+→ Travailler avec des entreprises ou des projets plus importants
+→ Être recommandé plus facilement par tes clients actuels
+
+...alors oui, ça change vraiment quelque chose.
+
+C'est la différence entre quelqu'un qui dit "je suis électricien" et quelqu'un qui montre la preuve qu'il l'est vraiment.
+
+Tu veux un exemple concret ? 👇</div>
+          <button class="emotion-copy" onclick="copyPost('cv-b-cur', this)">📋 Copier cette réponse</button>
+        </div>
+
+        <div class="emotion-block frustration">
+          <div class="emotion-title">🔴 Énervement — "Encore de la pub !"</div>
+          <div class="emotion-example">"C'est quoi encore ça"<br>"Vous cherchez juste à vendre"</div>
+          <div class="emotion-reply" id="cv-b-fru">Je comprends la méfiance, et tu as raison d'être prudent.
+
+Je ne vais pas te demander de faire confiance à mes mots.
+
+Je te propose juste une chose : laisse-moi te montrer un exemple de CV que j'ai fait. Gratuit. Aucun engagement.
+
+Tu regardes, tu juges. Si ça ne t'intéresse pas, pas de problème — on continue à partager des astuces ici comme d'habitude.
+
+Est-ce que tu veux voir l'exemple ? 👇</div>
+          <button class="emotion-copy" onclick="copyPost('cv-b-fru', this)">📋 Copier cette réponse</button>
+        </div>
+
+        <div class="emotion-block hot">
+          <div class="emotion-title">🟢 Intérêt chaud — "Je veux le mien"</div>
+          <div class="emotion-example">"🙋"<br>"Je suis intéressé"</div>
+          <div class="emotion-reply" id="cv-b-hot">Parfait 💪 Tu fais le bon choix.
+
+Envoie-moi en privé :
+→ Ton prénom et nom
+→ Ton métier exact
+→ Tes compétences (même en quelques mots)
+→ Ta ville / zone de travail
+
+Je te prépare quelque chose de professionnel en moins de 24h.
+Paiement : 2 500 F à la commande + 2 500 F à la livraison (Orange Money / MTN).
+
+Message privé maintenant 👉</div>
+          <button class="emotion-copy" onclick="copyPost('cv-b-hot', this)">📋 Copier cette réponse</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ─── OFFRE 2 : CATALOGUE ─── -->
+  <div class="offer-group">
+    <div class="offer-group-title">
+      <span class="offer-dot" style="background:var(--accent2)"></span>
+      Offre 2 — Catalogue de Services · 10 000 F CFA
+    </div>
+
+    <div class="sale-card">
+      <div class="sale-card-header">
+        <span class="sale-label" style="color:var(--accent2)">Post A — Le problème du bouche-à-oreille seul</span>
+        <button class="copy-btn" style="margin:0" onclick="copyPost('cat-a', this)">📋 Copier</button>
+      </div>
+      <div class="post-text" id="cat-a">📱 Ton meilleur vendeur doit tenir dans le téléphone de ton client.
+
+Aujourd'hui quand quelqu'un te recommande, qu'est-ce que ton client peut montrer à ses amis ?
+→ "Il est bien, je te donne son numéro" 
+C'est tout.
+
+Maintenant imagine qu'il puisse partager ça :
+→ Un catalogue avec tes photos de travaux
+→ Tes prestations détaillées
+→ Tes tarifs indicatifs
+→ Ton contact
+
+En 1 partage WhatsApp, 10 personnes connaissent ton activité. Sans que tu aies besoin de l'expliquer.
+
+C'est ça un catalogue de services. Et je te le crée en 48h pour 10 000 F.
+
+📸 Tu as des photos de tes travaux ? Oui ou non 👇</div>
+
+      <div class="emotions-grid">
+        <div class="emotion-block curiosity">
+          <div class="emotion-title">💛 Curiosité — "Ça ressemble à quoi un catalogue ?"</div>
+          <div class="emotion-example">"C'est comme une brochure ?"<br>"Tu montres un exemple ?"</div>
+          <div class="emotion-reply" id="cat-a-cur">Exactement, c'est une brochure numérique.
+
+Concrètement c'est 4 à 6 images au format carré ou rectangle, optimisées pour WhatsApp, avec :
+
+🖼 Page 1 — Présentation de toi et ton métier
+🖼 Page 2 — Tes services principaux
+🖼 Page 3 — Tes réalisations / photos de chantier
+🖼 Page 4 — Tes tarifs ou fourchette de prix
+🖼 Page 5 — Témoignages si tu en as
+🖼 Page 6 — Tes contacts et zone de travail
+
+Tout ça dans les couleurs de ton activité, propre et pro.
+Tu veux que je t'envoie un exemple de catalogue que j'ai déjà fait ? 👇</div>
+          <button class="emotion-copy" onclick="copyPost('cat-a-cur', this)">📋 Copier cette réponse</button>
+        </div>
+
+        <div class="emotion-block frustration">
+          <div class="emotion-title">🔴 Frustration — "Je n'ai pas de photos de mes travaux"</div>
+          <div class="emotion-example">"Je prends pas de photos d'habitude"<br>"Mes chantiers sont pas photogéniques"</div>
+          <div class="emotion-reply" id="cat-a-fru">C'est le problème numéro 1 que j'entends, et je comprends.
+
+Voici ce qu'on fait dans ce cas :
+✅ On commence par trouver des images libres de droits qui ressemblent à ton travail — je m'en charge
+✅ On met en avant tes compétences et ton expérience à la place des photos
+✅ Je te conseille 3 photos simples à prendre cette semaine (avec ton téléphone ça suffit)
+
+Pas besoin d'attendre d'avoir le catalogue parfait pour démarrer. On part avec ce que tu as aujourd'hui et on améliore au fur et à mesure.
+
+Tu veux qu'on démarre quand même ? 👇</div>
+          <button class="emotion-copy" onclick="copyPost('cat-a-fru', this)">📋 Copier cette réponse</button>
+        </div>
+
+        <div class="emotion-block hot">
+          <div class="emotion-title">🟢 Intérêt chaud — "Je veux un catalogue"</div>
+          <div class="emotion-example">"Oui j'ai des photos"<br>"Je veux commander"</div>
+          <div class="emotion-reply" id="cat-a-hot">Top ! Voilà comment ça se passe :
+
+Envoie-moi en message privé :
+📸 Tes meilleures photos de travaux (3 minimum)
+📝 La liste de tes prestations principales
+📍 Ta ville et zone de travail
+📞 Ton numéro à afficher sur le catalogue
+
+Je te fais une première version en 48h.
+Acompte : 5 000 F avant démarrage — solde à la livraison.
+
+Message privé maintenant 👉</div>
+          <button class="emotion-copy" onclick="copyPost('cat-a-hot', this)">📋 Copier cette réponse</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="sale-card">
+      <div class="sale-card-header">
+        <span class="sale-label" style="color:var(--accent2)">Post B — Preuve sociale &amp; jalousie positive</span>
+        <button class="copy-btn" style="margin:0" onclick="copyPost('cat-b', this)">📋 Copier</button>
+      </div>
+      <div class="post-text" id="cat-b">👀 Un électricien de ce groupe a testé le catalogue la semaine passée.
+
+Il m'a envoyé un message ce matin : "Frère j'ai envoyé le catalogue à 12 contacts hier soir. Ce matin j'ai déjà 3 personnes qui ont répondu pour des devis."
+
+12 envois. 3 retours. En une nuit.
+
+Sans pub payante. Sans page Facebook. Juste un catalogue propre envoyé sur WhatsApp.
+
+C'est ça le pouvoir d'un document professionnel qui se partage tout seul.
+
+👉 Le tien peut être prêt dans 48h pour 10 000 F.
+
+Qui est le prochain ? Répondez 🙋 ci-dessous.</div>
+
+      <div class="emotions-grid">
+        <div class="emotion-block curiosity">
+          <div class="emotion-title">💛 Curiosité — "C'est vraiment vrai ça ?"</div>
+          <div class="emotion-example">"Il a vraiment eu 3 retours ?"<br>"Tu peux me montrer son catalogue ?"</div>
+          <div class="emotion-reply" id="cat-b-cur">Je comprends le doute, c'est normal.
+
+Je ne peux pas te montrer son catalogue sans sa permission, c'est son document.
+
+Mais je peux faire mieux : je te crée ton catalogue, et dans 48h tu testes toi-même. Tu l'envoies à 10 contacts ce soir et tu me dis ce qui se passe.
+
+Si ça ne génère aucun intérêt, je te fais une révision gratuite jusqu'à ce que ça accroche.
+
+Tu as rien à perdre à essayer. 👇</div>
+          <button class="emotion-copy" onclick="copyPost('cat-b-cur', this)">📋 Copier cette réponse</button>
+        </div>
+
+        <div class="emotion-block frustration">
+          <div class="emotion-title">🔴 Énervement — "C'est du marketing tout ça"</div>
+          <div class="emotion-example">"Ces histoires de clients c'est inventé"<br>"Tout le monde dit ça pour vendre"</div>
+          <div class="emotion-reply" id="cat-b-fru">Tu as raison d'être sceptique. Internet est plein de fausses promesses.
+
+Je ne vais pas te convaincre avec des mots.
+
+Voici ce que je te propose : on fait un test réel. Tu commandes le catalogue. Tu l'envoies à 20 contacts. Si dans 72h tu n'as aucune réaction positive — aucune — je te rembourse.
+
+C'est ça ma garantie. Pas des promesses. Une vraie garantie sur résultat.
+
+Tu veux qu'on parte là-dessus ? 👇</div>
+          <button class="emotion-copy" onclick="copyPost('cat-b-fru', this)">📋 Copier cette réponse</button>
+        </div>
+
+        <div class="emotion-block hot">
+          <div class="emotion-title">🟢 Intérêt chaud — "🙋 Je veux être le prochain"</div>
+          <div class="emotion-example">"Comment je fais ?"<br>"Je commande"</div>
+          <div class="emotion-reply" id="cat-b-hot">Excellent choix 🔥
+
+Voilà les étapes :
+1️⃣ Tu m'envoies en privé : photos de travaux + liste de tes services + contacts
+2️⃣ Acompte 5 000 F via Orange Money ou MTN Money
+3️⃣ Je démarre immédiatement — livraison en 48h
+4️⃣ Tu valides, tu paies le solde, tu reçois tous les fichiers
+
+Simple. Rapide. Efficace.
+
+Message privé maintenant 📩</div>
+          <button class="emotion-copy" onclick="copyPost('cat-b-hot', this)">📋 Copier cette réponse</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ─── OFFRE 3 : PACK COMPLET ─── -->
+  <div class="offer-group">
+    <div class="offer-group-title">
+      <span class="offer-dot" style="background:#f59e0b"></span>
+      Offre 3 — Pack Complet · 20 000 F CFA
+    </div>
+
+    <div class="sale-card">
+      <div class="sale-card-header">
+        <span class="sale-label" style="color:#f59e0b">Post A — Le coût de l'invisibilité</span>
+        <button class="copy-btn" style="margin:0" onclick="copyPost('pack-a', this)">📋 Copier</button>
+      </div>
+      <div class="post-text" id="pack-a">💰 Calcule combien tu perds chaque mois à ne pas être professionnel en ligne.
+
+Si tu rates 2 chantiers par mois à cause d'un manque de crédibilité...
+Et que chaque chantier vaut en moyenne 30 000 F...
+
+→ Tu perds 60 000 F par mois.
+→ 720 000 F par an.
+
+Le Pack Complet coûte 20 000 F. Une seule fois.
+
+Ce qu'il comprend :
+📄 CV professionnel
+📦 Catalogue de services complet
+📱 Bio WhatsApp Business optimisée
+💬 Conseils personnalisés pour ton activité
+
+Tout ça te donne une image sérieuse, professionnelle, immédiate.
+
+La question c'est pas "est-ce que ça vaut 20 000 F ?"
+La vraie question c'est : "combien ça me coûte de ne pas l'avoir ?"
+
+Qui veut faire le calcul ensemble ? Répondez 💬 ci-dessous.</div>
+
+      <div class="emotions-grid">
+        <div class="emotion-block curiosity">
+          <div class="emotion-title">💛 Curiosité — "Qu'est-ce que la bio WhatsApp optimisée ?"</div>
+          <div class="emotion-example">"C'est quoi la bio WhatsApp ?"<br>"En quoi ça consiste exactement ?"</div>
+          <div class="emotion-reply" id="pack-a-cur">Bonne question !
+
+La bio WhatsApp c'est le petit texte visible quand quelqu'un ouvre ton profil pour la première fois.
+
+La plupart des artisans ont soit rien, soit juste "Electricien".
+
+Moi je te configure ça comme ça :
+⚡ [Ton métier] professionnel | [Ta ville]
+📋 Services : [tes 3 prestations principales]
+⏰ Dispo : Lun–Sam | 7h–18h
+📞 Devis gratuit en 30 min
+
+En 2 secondes, le client sait qui tu es, ce que tu fais et comment te contacter.
+C'est inclus dans le pack à 20 000 F avec tout le reste.
+
+Tu veux voir d'autres exemples du pack ? 👇</div>
+          <button class="emotion-copy" onclick="copyPost('pack-a-cur', this)">📋 Copier cette réponse</button>
+        </div>
+
+        <div class="emotion-block frustration">
+          <div class="emotion-title">🔴 Résistance — "20 000 c'est beaucoup d'un coup"</div>
+          <div class="emotion-example">"J'ai pas tout ça maintenant"<br>"C'est trop cher pour moi"</div>
+          <div class="emotion-reply" id="pack-a-fru">Je comprends parfaitement.
+
+Voilà ce qu'on peut faire : commence par l'offre qui rentre dans ton budget maintenant.
+
+→ CV seul à 5 000 F
+→ Catalogue seul à 10 000 F
+
+Quand tu fais les deux séparément ça revient à 15 000 F. Le pack à 20 000 F t'offre en plus la bio WhatsApp et les conseils personnalisés.
+
+Tu peux démarrer avec le catalogue à 10 000 F aujourd'hui — c'est l'outil qui génère le plus de clients rapidement. Et on complète avec le CV plus tard.
+
+Ça te convient ? 👇</div>
+          <button class="emotion-copy" onclick="copyPost('pack-a-fru', this)">📋 Copier cette réponse</button>
+        </div>
+
+        <div class="emotion-block hot">
+          <div class="emotion-title">🟢 Intérêt chaud — "Je veux le pack complet"</div>
+          <div class="emotion-example">"Je prends tout"<br>"C'est quoi les étapes ?"</div>
+          <div class="emotion-reply" id="pack-a-hot">C'est la meilleure décision 💪
+
+Voilà comment ça se passe :
+
+Étape 1 → Tu m'envoies en privé :
+• Ton nom + métier + spécialité
+• Tes compétences & réalisations (pour le CV)
+• Tes photos de travaux (pour le catalogue)
+• Tes services & tarifs approximatifs
+• Ta ville et contacts
+
+Étape 2 → Acompte 10 000 F à la commande
+
+Étape 3 → Je livre en 3 jours ouvrés :
+✅ CV PDF
+✅ Catalogue 6 visuels
+✅ Bio WhatsApp rédigée et prête à copier
+✅ Session conseils offerte
+
+Étape 4 → Solde 10 000 F à la livraison
+
+Message privé maintenant 📩 On démarre aujourd'hui !</div>
+          <button class="emotion-copy" onclick="copyPost('pack-a-hot', this)">📋 Copier cette réponse</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="sale-card">
+      <div class="sale-card-header">
+        <span class="sale-label" style="color:#f59e0b">Post B — Transformation &amp; identité professionnelle</span>
+        <button class="copy-btn" style="margin:0" onclick="copyPost('pack-b', this)">📋 Copier</button>
+      </div>
+      <div class="post-text" id="pack-b">🪞 Il y a deux types d'artisans dans ta ville.
+
+Le premier : il travaille bien, tout le monde le sait dans son quartier. Mais en dehors de son cercle, personne ne le connaît. Il attend qu'on lui appelle.
+
+Le deuxième : même niveau de compétence. Mais il a un CV, un catalogue, un profil WhatsApp sérieux. Les clients qui ne le connaissent pas lui font confiance quand même, parce que tout ça montre du sérieux.
+
+Lequel a le plus de travail ? Lequel peut facturer plus cher ?
+
+Le Pack Complet à 20 000 F transforme le premier en deuxième.
+CV + Catalogue + Bio WhatsApp Business configurée.
+
+En 3 jours, tu es le deuxième type d'artisan.
+
+C'est qui parmi vous le premier type aujourd'hui ? Soyez honnêtes 👇</div>
+
+      <div class="emotions-grid">
+        <div class="emotion-block curiosity">
+          <div class="emotion-title">💛 Curiosité / Identification — "C'est moi le premier type"</div>
+          <div class="emotion-example">"😅 C'est exactement moi ça"<br>"Ouais c'est vrai je suis dans ce cas"</div>
+          <div class="emotion-reply" id="pack-b-cur">Merci pour l'honnêteté, c'est déjà une grande force.
+
+La bonne nouvelle : passer du premier au deuxième type ne prend pas des mois. Ça prend 3 jours avec le bon accompagnement.
+
+Et une fois que c'est fait, ça travaille pour toi 24h/24 — même quand tu es sur un chantier, ton catalogue se partage, ton CV parle pour toi.
+
+Tu veux qu'on planifie ça cette semaine ? Je t'explique exactement comment ça se passe en privé. 👇</div>
+          <button class="emotion-copy" onclick="copyPost('pack-b-cur', this)">📋 Copier cette réponse</button>
+        </div>
+
+        <div class="emotion-block frustration">
+          <div class="emotion-title">🔴 Déni / Énervement — "C'est pas le document qui fait le professionnel"</div>
+          <div class="emotion-example">"C'est le travail qui parle pas le papier"<br>"Mes clients se foutent du catalogue"</div>
+          <div class="emotion-reply" id="pack-b-fru">Tu as raison sur un point : le travail prime toujours.
+
+Mais voici la réalité : ton client, avant de voir ton travail, il voit TON IMAGE. Il ne peut pas évaluer ta compétence avant de t'avoir embauché.
+
+Alors sur quoi il se base pour choisir entre toi et quelqu'un d'autre ?
+→ La confiance que tu inspires à la première impression.
+
+Le catalogue et le CV ne remplacent pas le talent. Ils ouvrent la porte pour que les gens voient ton talent.
+
+Tu mérites que les gens te donnent leur chance. Ce document leur donne une raison de le faire.
+
+Qu'est-ce que t'en penses vraiment ? 👇</div>
+          <button class="emotion-copy" onclick="copyPost('pack-b-fru', this)">📋 Copier cette réponse</button>
+        </div>
+
+        <div class="emotion-block hot">
+          <div class="emotion-title">🟢 Intérêt chaud — "Je veux devenir le deuxième type"</div>
+          <div class="emotion-example">"Je veux changer ça"<br>"Comment je commande ?"</div>
+          <div class="emotion-reply" id="pack-b-hot">C'est parti ! 🚀
+
+Tu es à 3 jours de ta transformation.
+
+Envoie-moi un message privé avec le mot "PACK" et je te guide étape par étape.
+
+Tu vas recevoir :
+✅ Ton CV professionnel
+✅ Ton catalogue 6 visuels
+✅ Ta bio WhatsApp configurée
+✅ Mes conseils personnalisés pour ton activité
+
+20 000 F. 3 jours. Et tu ne cherches plus des clients — c'est eux qui te trouvent.
+
+Message privé → "PACK" 📩</div>
+          <button class="emotion-copy" onclick="copyPost('pack-b-hot', this)">📋 Copier cette réponse</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ─── OFFRE 4 : RÉVISION ─── -->
+  <div class="offer-group">
+    <div class="offer-group-title">
+      <span class="offer-dot" style="background:#a78bfa"></span>
+      Offre 4 — Mise à Jour / Révision · 3 000 F CFA
+    </div>
+
+    <div class="sale-card">
+      <div class="sale-card-header">
+        <span class="sale-label" style="color:#a78bfa">Post A — Le document qui vieillit mal</span>
+        <button class="copy-btn" style="margin:0" onclick="copyPost('rev-a', this)">📋 Copier</button>
+      </div>
+      <div class="post-text" id="rev-a">📅 Ton catalogue date de quand ?
+
+Tu as les mêmes prix qu'il y a 6 mois ? Les mêmes services ? La même photo ?
+
+Un document qui n'est pas à jour, c'est pire qu'un document inexistant.
+→ Tu envoies un catalogue avec des anciens prix → le client arrive avec des attentes que tu ne peux pas honorer
+→ Tu montres un chantier de 2 ans → on pense que tu ne travailles plus
+→ Ta photo est floue → le client doute
+
+3 000 F et en 12h ton document est à jour, propre, et prêt à être envoyé.
+
+Tu as un CV ou un catalogue qui mériterait une mise à jour ? Répondez OUI 👇</div>
+
+      <div class="emotions-grid">
+        <div class="emotion-block curiosity">
+          <div class="emotion-title">💛 Curiosité — "Qu'est-ce que tu peux changer exactement ?"</div>
+          <div class="emotion-example">"Tu peux modifier quoi ?"<br>"Même si c'est pas toi qui l'a fait ?"</div>
+          <div class="emotion-reply" id="rev-a-cur">Je peux modifier n'importe quel document visuel :
+
+✅ Changer les prix ou les services
+✅ Remplacer des photos par de nouvelles
+✅ Ajouter ou supprimer des prestations
+✅ Mettre à jour les contacts ou la zone de travail
+✅ Rafraîchir le design si nécessaire
+
+Et oui — même si c'est quelqu'un d'autre qui a créé le document au départ. Du moment que tu as le fichier ou les images, je peux travailler dessus.
+
+Envoie-moi ce que tu as en message privé, je te dis exactement ce que je peux faire et en combien de temps. 👇</div>
+          <button class="emotion-copy" onclick="copyPost('rev-a-cur', this)">📋 Copier cette réponse</button>
+        </div>
+
+        <div class="emotion-block frustration">
+          <div class="emotion-title">🔴 Résistance — "Je vais le faire moi-même"</div>
+          <div class="emotion-example">"J'ai Canva je vais modifier"<br>"C'est pas compliqué"</div>
+          <div class="emotion-reply" id="rev-a-fru">Parfait ! Canva c'est un excellent outil et je suis content que tu l'utilises.
+
+Si tu le fais toi-même et que le résultat est bon — c'est la meilleure option, tu économises 3 000 F.
+
+Mais si tu bloques sur quelque chose — alignement, couleurs, taille des images pour WhatsApp, export en bonne résolution — n'hésite pas à revenir vers moi.
+
+Je suis là pour t'aider à aller plus vite, pas pour te forcer à payer. 👍</div>
+          <button class="emotion-copy" onclick="copyPost('rev-a-fru', this)">📋 Copier cette réponse</button>
+        </div>
+
+        <div class="emotion-block hot">
+          <div class="emotion-title">🟢 Intérêt chaud — "OUI j'ai besoin d'une mise à jour"</div>
+          <div class="emotion-example">"Oui je veux mettre à jour"<br>"J'ai un vieux catalogue"</div>
+          <div class="emotion-reply" id="rev-a-hot">Super, c'est simple et rapide.
+
+Envoie-moi en message privé :
+📎 Ton document actuel (PDF ou images)
+📝 Les modifications souhaitées (liste ou message vocal)
+
+Je te confirme le délai et on démarre.
+Paiement : 3 000 F complets à la commande (c'est une petite mission, paiement intégral).
+
+Message privé 👉</div>
+          <button class="emotion-copy" onclick="copyPost('rev-a-hot', this)">📋 Copier cette réponse</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="sale-card">
+      <div class="sale-card-header">
+        <span class="sale-label" style="color:#a78bfa">Post B — Offre éclair urgence</span>
+        <button class="copy-btn" style="margin:0" onclick="copyPost('rev-b', this)">📋 Copier</button>
+      </div>
+      <div class="post-text" id="rev-b">⚡ OFFRE FLASH — Ce soir uniquement
+
+Tu as un catalogue ou un CV qui a besoin d'une retouche ?
+Je le mets à jour ce soir et tu le reçois demain matin.
+
+✅ Changement de prix
+✅ Ajout / suppression de services
+✅ Nouvelles photos
+✅ Correction d'erreurs
+
+Tarif : 3 000 F CFA — paiement en une fois.
+Délai : livraison avant 8h demain matin.
+
+3 places disponibles ce soir. Premier arrivé, premier servi.
+
+Envoyez "FLASH" en message privé maintenant 👇</div>
+
+      <div class="emotions-grid">
+        <div class="emotion-block curiosity">
+          <div class="emotion-title">💛 Curiosité — "C'est vraiment pour ce soir ?"</div>
+          <div class="emotion-example">"Tu travailles la nuit ?"<br>"C'est sérieux ?"</div>
+          <div class="emotion-reply" id="rev-b-cur">Oui, tout à fait sérieux !
+
+Je travaille souvent en soirée — c'est là que je suis le plus concentré et productif.
+
+Pour les petites missions comme les révisions, je peux facilement livrer en quelques heures.
+
+Mais les places sont limitées parce que je veux garantir la qualité. Dès que les 3 slots sont pris ce soir, je ferme les commandes flash jusqu'à demain.
+
+Tu veux réserver ta place maintenant ? 👇</div>
+          <button class="emotion-copy" onclick="copyPost('rev-b-cur', this)">📋 Copier cette réponse</button>
+        </div>
+
+        <div class="emotion-block frustration">
+          <div class="emotion-title">🔴 Scepticisme — "Encore une fausse urgence"</div>
+          <div class="emotion-example">"C'est du marketing les '3 places'"<br>"Vous dites toujours ça"</div>
+          <div class="emotion-reply" id="rev-b-fru">Tu as raison de te méfier — ce genre de technique est souvent utilisée pour manipuler.
+
+Je ne vais pas te convaincre que c'est vrai. Ce que je peux te dire c'est que l'offre à 3 000 F est disponible tous les jours, pas uniquement ce soir.
+
+Si tu as un document à mettre à jour, envoie-le moi quand tu veux. Je te dis honnêtement le délai réaliste selon mon agenda du moment.
+
+Pas de manipulation. Juste du travail sérieux. 👍</div>
+          <button class="emotion-copy" onclick="copyPost('rev-b-fru', this)">📋 Copier cette réponse</button>
+        </div>
+
+        <div class="emotion-block hot">
+          <div class="emotion-title">🟢 Intérêt chaud — "FLASH"</div>
+          <div class="emotion-example">"Je t'envoie en privé"<br>"FLASH"</div>
+          <div class="emotion-reply" id="rev-b-hot">Reçu ! ✅
+
+Envoie-moi :
+1️⃣ Ton document actuel
+2️⃣ Les modifications à faire (liste ou message vocal)
+3️⃣ Le paiement de 3 000 F (Orange Money / MTN)
+
+Dès réception, je démarre. Tu reçois la version finale avant 8h demain.
+
+À tout de suite en privé 📩</div>
+          <button class="emotion-copy" onclick="copyPost('rev-b-hot', this)">📋 Copier cette réponse</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ─── OFFRE 5 : MINI SITE ─── -->
+  <div class="offer-group">
+    <div class="offer-group-title">
+      <span class="offer-dot" style="background:#38bdf8"></span>
+      Offre 5 — Mini Site Vitrine · 30 000 F CFA
+    </div>
+
+    <div class="sale-card">
+      <div class="sale-card-header">
+        <span class="sale-label" style="color:#38bdf8">Post A — L'adresse que les clients peuvent partager</span>
+        <button class="copy-btn" style="margin:0" onclick="copyPost('site-a', this)">📋 Copier</button>
+      </div>
+      <div class="post-text" id="site-a">🌐 Imagine envoyer ça à un client : "Voici mon site : monnom-electricien.vercel.app"
+
+Pas Facebook. Pas un groupe WhatsApp. Ton propre site.
+
+Une page avec :
+→ Tes services détaillés
+→ Tes photos de réalisations
+→ Un formulaire pour te contacter
+→ Ton numéro de téléphone en un clic
+→ Ta zone d'intervention
+
+Et tout ça disponible 24h/24, visible sur Google, partageable partout.
+
+Ce n'est plus réservé aux grandes entreprises. Je te crée ce site en 5 jours pour 30 000 F. Hébergement gratuit inclus — pas d'abonnement à payer chaque année.
+
+Tu connais un artisan qui a son propre site ici ? 👀 Répondez ci-dessous.</div>
+
+      <div class="emotions-grid">
+        <div class="emotion-block curiosity">
+          <div class="emotion-title">💛 Curiosité — "C'est quoi Vercel ?"</div>
+          <div class="emotion-example">"C'est quoi comme site ?"<br>"Comment les gens vont me trouver ?"</div>
+          <div class="emotion-reply" id="site-a-cur">Vercel c'est une plateforme américaine qui héberge des sites gratuitement.
+
+Concrètement pour toi :
+→ Ton site aura une adresse du type : prenom-metier.vercel.app
+→ Ou avec un vrai domaine (.com) si tu veux, pour environ 5 000 F/an en plus
+→ Le site est rapide, s'affiche bien sur mobile et sur ordinateur
+→ Il est indexable sur Google — des clients qui cherchent un électricien à Douala peuvent te trouver
+
+C'est exactement ce qu'ont les entreprises professionnelles. Je te le construis avec React, la technologie utilisée par les grandes plateformes.
+
+Tu veux voir un exemple de site que j'ai déjà réalisé ? 👇</div>
+          <button class="emotion-copy" onclick="copyPost('site-a-cur', this)">📋 Copier cette réponse</button>
+        </div>
+
+        <div class="emotion-block frustration">
+          <div class="emotion-title">🔴 Résistance — "30 000 c'est trop cher pour moi"</div>
+          <div class="emotion-example">"J'ai pas ce budget"<br>"C'est pas pour les gens comme moi"</div>
+          <div class="emotion-reply" id="site-a-fru">Je comprends, 30 000 F c'est un investissement sérieux.
+
+Voilà ce que je te suggère : commence par le Pack Complet à 20 000 F — CV + Catalogue + Bio WhatsApp. C'est l'outil le plus rapide pour générer des clients maintenant.
+
+Le site vitrine, c'est l'étape d'après — quand tu as déjà du travail régulier et tu veux passer au niveau supérieur.
+
+Construis d'abord ta base avec les documents. Et quand tu es prêt pour le site, je serai là.
+
+Tu veux démarrer par le pack ? 👇</div>
+          <button class="emotion-copy" onclick="copyPost('site-a-fru', this)">📋 Copier cette réponse</button>
+        </div>
+
+        <div class="emotion-block hot">
+          <div class="emotion-title">🟢 Intérêt chaud — "Je veux mon site"</div>
+          <div class="emotion-example">"Je veux un site"<br>"Comment on démarre ?"</div>
+          <div class="emotion-reply" id="site-a-hot">Excellent ! Tu passes au niveau pro 🚀
+
+Pour démarrer j'ai besoin de :
+📝 Description de ton activité et tes services
+📸 Photos de tes réalisations (5 minimum)
+🎨 Tes couleurs préférées ou un logo si tu en as
+📞 Tes contacts à afficher
+📍 Ta zone de travail et horaires
+
+Je te crée une maquette en 48h que tu valides avant que je développe.
+Acompte : 15 000 F au démarrage — solde à la livraison.
+
+Message privé maintenant 👉 On construit ton image professionnelle.</div>
+          <button class="emotion-copy" onclick="copyPost('site-a-hot', this)">📋 Copier cette réponse</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="sale-card">
+      <div class="sale-card-header">
+        <span class="sale-label" style="color:#38bdf8">Post B — L'argument Google</span>
+        <button class="copy-btn" style="margin:0" onclick="copyPost('site-b', this)">📋 Copier</button>
+      </div>
+      <div class="post-text" id="site-b">🔍 Ouvre Google et tape "électricien Douala".
+
+Qui tu vois ?
+
+Pas les meilleurs électriciens de Douala. Ceux qui ont un site.
+
+Pendant que toi tu attends que quelqu'un te recommande, eux reçoivent des appels de gens qui ne les connaissent même pas — juste parce qu'ils sont visibles en ligne.
+
+Un site vitrine c'est comme ouvrir une boutique sur la rue la plus fréquentée de la ville. Sauf que cette rue c'est Google, et elle est ouverte 24h/24.
+
+Je te construis cette boutique en 5 jours pour 30 000 F.
+Pas d'abonnement annuel. Pas de frais cachés.
+
+Combien de nouveaux clients par mois tu veux attirer ? Répondez avec un chiffre 👇</div>
+
+      <div class="emotions-grid">
+        <div class="emotion-block curiosity">
+          <div class="emotion-title">💛 Curiosité — "Mon site va vraiment apparaître sur Google ?"</div>
+          <div class="emotion-example">"Google va vraiment afficher mon site ?"<br>"Ça prend combien de temps ?"</div>
+          <div class="emotion-reply" id="site-b-cur">Oui — avec quelques précisions importantes.
+
+Google indexe les sites en général dans les 2 à 4 semaines après la mise en ligne.
+
+Pour les résultats locaux (ton nom + ta ville), tu peux apparaître assez rapidement si je configure bien le SEO de base — c'est inclus dans les 30 000 F.
+
+Pour les mots-clés très compétitifs comme juste "électricien Douala" tout court, ça prend plus de temps et de travail SEO avancé. Mais pour "électricien [ton quartier]" ou "électricien disponible [ta zone]", un site bien fait peut se positionner en quelques semaines.
+
+C'est un investissement à moyen terme qui rapporte longtemps.
+
+Tu veux plus de détails sur le SEO inclus ? 👇</div>
+          <button class="emotion-copy" onclick="copyPost('site-b-cur', this)">📋 Copier cette réponse</button>
+        </div>
+
+        <div class="emotion-block frustration">
+          <div class="emotion-title">🔴 Frustration — "J'ai essayé Facebook ça marche pas"</div>
+          <div class="emotion-example">"J'ai une page Facebook personne ne voit"<br>"Le digital c'est pas pour nous"</div>
+          <div class="emotion-reply" id="site-b-fru">Je comprends cette frustration, et tu n'es pas seul dans ce cas.
+
+Facebook a un vrai problème : il faut payer pour être vu. Sans pub, une page Facebook est presque invisible.
+
+Un site web c'est différent :
+→ Tu n'es pas dépendant d'un algorithme
+→ Tu n'as pas besoin de publier tous les jours
+→ Les gens qui te trouvent sur Google cherchent ACTIVEMENT un artisan — ils sont déjà prêts à acheter
+
+Facebook = tu vas chercher des clients
+Google = les clients viennent te chercher
+
+C'est pas la même chose. Et c'est pour ça que le site fonctionne là où Facebook déçoit.
+
+Est-ce que ça change ta vision des choses ? 👇</div>
+          <button class="emotion-copy" onclick="copyPost('site-b-fru', this)">📋 Copier cette réponse</button>
+        </div>
+
+        <div class="emotion-block hot">
+          <div class="emotion-title">🟢 Intérêt chaud — Répond avec un chiffre</div>
+          <div class="emotion-example">"5 clients par mois"<br>"Je veux 10 nouveaux clients"</div>
+          <div class="emotion-reply" id="site-b-hot">Super objectif ! Et c'est réaliste avec un bon site.
+
+Voilà mon plan pour toi :
+→ Je construis une page dédiée à ta spécialité et ta ville
+→ J'intègre les bons mots-clés pour que Google comprenne ton métier
+→ Je mets un bouton "Appeler maintenant" bien visible
+→ Je configure Google Search Console pour suivre tes visites
+
+Pour [X] clients/mois, on commence par rendre ton site visible localement — c'est là que les résultats arrivent le plus vite.
+
+On commence quand ? Message privé 📩</div>
+          <button class="emotion-copy" onclick="copyPost('site-b-hot', this)">📋 Copier cette réponse</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- STYLES SECTION 3 -->
+<style>
+  .offer-group {
+    margin-bottom: 52px;
+  }
+
+  .offer-group-title {
+    font-family: 'Bricolage Grotesque', sans-serif;
+    font-size: 1rem;
+    font-weight: 800;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 20px;
+    padding-bottom: 14px;
+    border-bottom: 1px solid var(--border);
+    color: var(--text);
+  }
+
+  .offer-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  .sale-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 28px;
+    margin-bottom: 20px;
+  }
+
+  .sale-card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 18px;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .sale-label {
+    font-family: 'Bricolage Grotesque', sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+  }
+
+  .emotions-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
+    margin-top: 22px;
+  }
+
+  .emotion-block {
+    border-radius: 4px;
+    padding: 18px;
+    border: 1px solid;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .emotion-block.curiosity {
+    background: rgba(245,166,35,0.06);
+    border-color: rgba(245,166,35,0.25);
+  }
+
+  .emotion-block.frustration {
+    background: rgba(232,68,90,0.06);
+    border-color: rgba(232,68,90,0.25);
+  }
+
+  .emotion-block.hot {
+    background: rgba(62,207,142,0.06);
+    border-color: rgba(62,207,142,0.25);
+  }
+
+  .emotion-title {
+    font-family: 'Bricolage Grotesque', sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    line-height: 1.4;
+    color: var(--text);
+  }
+
+  .emotion-example {
+    font-size: 11px;
+    color: var(--muted);
+    font-style: italic;
+    line-height: 1.6;
+    padding: 8px 10px;
+    background: var(--surface2);
+    border-radius: 3px;
+    border-left: 2px solid var(--border);
+  }
+
+  .emotion-reply {
+    font-size: 12.5px;
+    line-height: 1.75;
+    color: #b8c4d8;
+    white-space: pre-wrap;
+    word-break: break-word;
+    flex: 1;
+  }
+
+  .emotion-copy {
+    background: transparent;
+    border: 1px solid var(--border);
+    color: var(--muted);
+    font-family: 'Bricolage Grotesque', sans-serif;
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    padding: 6px 12px;
+    cursor: pointer;
+    border-radius: 2px;
+    transition: all 0.2s;
+    align-self: flex-start;
+  }
+
+  .emotion-copy:hover { border-color: var(--accent2); color: var(--accent2); }
+  .emotion-copy.copied { border-color: var(--accent2); color: var(--accent2); }
+
+  @media (max-width: 900px) {
+    .emotions-grid { grid-template-columns: 1fr; }
+  }
+</style>
+
+<script>
+  function copyPost(id, btn) {
+    const text = document.getElementById(id).textContent.trim();
+    const origText = btn.textContent;
+    navigator.clipboard.writeText(text).then(() => {
+      btn.textContent = '✅ Copié !';
+      btn.classList.add('copied');
+      setTimeout(() => {
+        btn.textContent = origText;
+        btn.classList.remove('copied');
+      }, 2500);
+    });
+  }
+
+  function copyTarif(btn) {
+    const text = document.getElementById('tarif-text').textContent.trim();
+    navigator.clipboard.writeText(text).then(() => {
+      btn.textContent = '✅ Grille copiée !';
+      btn.classList.add('copied');
+      setTimeout(() => {
+        btn.textContent = '📋 Copier la grille tarifaire en texte (pour WhatsApp)';
+        btn.classList.remove('copied');
+      }, 3000);
+    });
+  }
+
+  function copySalesPost(id, btn) {
+    const el = document.getElementById(id);
+    const text = el.textContent.trim();
+    navigator.clipboard.writeText(text).then(() => {
+      const orig = btn.textContent;
+      btn.textContent = '✅ Copié !';
+      btn.classList.add('copied');
+      setTimeout(() => { btn.textContent = orig; btn.classList.remove('copied'); }, 2500);
+    });
+  }
+
+  // Tabs logic
+  document.addEventListener('DOMContentLoaded', () => {
+    document.querySelectorAll('.emo-tab').forEach(tab => {
+      tab.addEventListener('click', () => {
+        const card = tab.closest('.sales-card');
+        const postId = tab.dataset.post;
+        const emoType = tab.dataset.emo;
+        card.querySelectorAll('.emo-tab').forEach(t => t.classList.remove('active'));
+        tab.classList.add('active');
+        card.querySelectorAll('.emo-panel').forEach(p => {
+          p.style.display = (p.dataset.post === postId && p.dataset.emo === emoType) ? 'block' : 'none';
+        });
+      });
+    });
+  });
+</script>
+
+<!-- ============================================================
+     SECTION 3 — POSTS DE VENTE PAR OFFRE + DÉCLENCHEURS ÉMOTIONNELS
+     ============================================================ -->
+<style>
+  /* SALES SECTION */
+  .sales-section {
+    max-width: 1080px;
+    margin: 80px auto 0;
+    padding: 0 40px 100px;
+  }
+
+  .sales-intro {
+    background: linear-gradient(135deg, #1a1210 0%, #110d07 100%);
+    border: 1px solid rgba(245,166,35,0.25);
+    border-radius: 4px;
+    padding: 36px 40px;
+    margin-bottom: 48px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .sales-intro::after {
+    content: '🧠';
+    position: absolute;
+    right: 30px; top: 50%;
+    transform: translateY(-50%);
+    font-size: 5rem;
+    opacity: 0.08;
+  }
+
+  .sales-intro h2 {
+    font-family: 'Bricolage Grotesque', sans-serif;
+    font-size: 1.6rem;
+    font-weight: 800;
+    margin-bottom: 10px;
+    line-height: 1.2;
+  }
+
+  .sales-intro h2 span { color: var(--accent); }
+
+  .sales-intro p {
+    font-size: 14px;
+    color: var(--muted);
+    line-height: 1.7;
+    max-width: 620px;
+  }
+
+  .emotion-legend {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-top: 20px;
+  }
+
+  .emo-pill {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 5px 14px;
+    border-radius: 2px;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    border: 1px solid;
+  }
+
+  .emo-pill.curiosity  { background: rgba(56,189,248,0.1);  border-color: rgba(56,189,248,0.3);  color: #38bdf8; }
+  .emo-pill.frustration{ background: rgba(232,68,90,0.1);   border-color: rgba(232,68,90,0.3);   color: var(--accent3); }
+  .emo-pill.anger      { background: rgba(251,113,133,0.1); border-color: rgba(251,113,133,0.3); color: #fb7185; }
+  .emo-pill.trust      { background: rgba(62,207,142,0.1);  border-color: rgba(62,207,142,0.3);  color: var(--accent2); }
+
+  /* OFFER GROUP */
+  .offer-group {
+    margin-bottom: 60px;
+  }
+
+  .offer-group-title {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 28px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .offer-group-title .offer-icon {
+    width: 44px; height: 44px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.4rem;
+    border-radius: 4px;
+    flex-shrink: 0;
+  }
+
+  .offer-group-title .offer-icon.cv      { background: rgba(245,166,35,0.15); }
+  .offer-group-title .offer-icon.cat     { background: rgba(62,207,142,0.15); }
+  .offer-group-title .offer-icon.pack    { background: rgba(167,139,250,0.15); }
+  .offer-group-title .offer-icon.update  { background: rgba(56,189,248,0.15); }
+  .offer-group-title .offer-icon.site    { background: rgba(232,68,90,0.15); }
+
+  .offer-group-title .offer-meta { flex: 1; }
+  .offer-group-title .offer-meta h3 {
+    font-family: 'Bricolage Grotesque', sans-serif;
+    font-size: 1.1rem;
+    font-weight: 800;
+    margin-bottom: 3px;
+  }
+  .offer-group-title .offer-meta p {
+    font-size: 12px;
+    color: var(--muted);
+  }
+
+  .offer-group-title .offer-price-tag {
+    font-family: 'Bricolage Grotesque', sans-serif;
+    font-size: 1.3rem;
+    font-weight: 800;
+    color: var(--accent);
+    white-space: nowrap;
+  }
+
+  /* SALES CARD */
+  .sales-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    margin-bottom: 20px;
+    overflow: hidden;
+    transition: border-color 0.2s;
+  }
+
+  .sales-card:hover { border-color: rgba(245,166,35,0.4); }
+
+  .sales-card-header {
+    padding: 18px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: var(--surface2);
+    border-bottom: 1px solid var(--border);
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+
+  .sales-card-header .post-label {
+    font-family: 'Bricolage Grotesque', sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+  }
+
+  .sales-card-header .post-label.post-a { color: var(--accent); }
+  .sales-card-header .post-label.post-b { color: #a78bfa; }
+
+  .post-strategy {
+    font-size: 11px;
+    color: var(--muted);
+    background: var(--surface);
+    border: 1px solid var(--border);
+    padding: 4px 12px;
+    border-radius: 2px;
+  }
+
+  .sales-card-body {
+    padding: 24px;
+  }
+
+  /* POST TEXT */
+  .post-sales-text {
+    background: #0d1117;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 22px;
+    font-size: 13.5px;
+    line-height: 1.85;
+    color: #c8d0e4;
+    white-space: pre-wrap;
+    word-break: break-word;
+    margin-bottom: 20px;
+    position: relative;
+  }
+
+  .post-sales-text::before {
+    content: '"';
+    position: absolute;
+    top: 10px; left: 16px;
+    font-size: 3rem;
+    color: rgba(245,166,35,0.08);
+    font-family: Georgia, serif;
+    line-height: 1;
+  }
+
+  /* EMOTION TABS */
+  .emo-tabs-label {
+    font-family: 'Bricolage Grotesque', sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 10px;
+  }
+
+  .emo-tabs {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-bottom: 16px;
+  }
+
+  .emo-tab {
+    padding: 7px 16px;
+    border-radius: 2px;
+    font-size: 11.5px;
+    font-weight: 600;
+    cursor: pointer;
+    border: 1px solid var(--border);
+    background: var(--surface2);
+    color: var(--muted);
+    transition: all 0.18s;
+    user-select: none;
+  }
+
+  .emo-tab:hover { border-color: var(--accent); color: var(--accent); }
+
+  .emo-tab.active.curiosity   { background: rgba(56,189,248,0.12);  border-color: #38bdf8;  color: #38bdf8; }
+  .emo-tab.active.frustration { background: rgba(232,68,90,0.12);   border-color: var(--accent3); color: var(--accent3); }
+  .emo-tab.active.anger       { background: rgba(251,113,133,0.12); border-color: #fb7185;  color: #fb7185; }
+  .emo-tab.active.trust       { background: rgba(62,207,142,0.12);  border-color: var(--accent2); color: var(--accent2); }
+
+  /* EMO PANELS */
+  .emo-panel { display: none; }
+  .emo-panel.default-open { display: block; }
+
+  .emo-panel-inner {
+    background: var(--surface2);
+    border-radius: 4px;
+    padding: 20px 22px;
+    border-left: 3px solid;
+  }
+
+  .emo-panel-inner.curiosity   { border-left-color: #38bdf8; }
+  .emo-panel-inner.frustration { border-left-color: var(--accent3); }
+  .emo-panel-inner.anger       { border-left-color: #fb7185; }
+  .emo-panel-inner.trust       { border-left-color: var(--accent2); }
+
+  .emo-panel-inner h4 {
+    font-family: 'Bricolage Grotesque', sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-bottom: 14px;
+  }
+
+  .emo-panel-inner h4.curiosity   { color: #38bdf8; }
+  .emo-panel-inner h4.frustration { color: var(--accent3); }
+  .emo-panel-inner h4.anger       { color: #fb7185; }
+  .emo-panel-inner h4.trust       { color: var(--accent2); }
+
+  .emo-triggers {
+    margin-bottom: 16px;
+  }
+
+  .emo-trigger-title {
+    font-size: 11px;
+    color: var(--muted);
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+
+  .trigger-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
+
+  .trigger-list li {
+    font-size: 12.5px;
+    color: #9ba8c4;
+    padding: 6px 10px;
+    background: rgba(255,255,255,0.03);
+    border-radius: 2px;
+    border-left: 2px solid rgba(255,255,255,0.08);
+  }
+
+  .responses-title {
+    font-size: 11px;
+    color: var(--muted);
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+    margin-top: 14px;
+  }
+
+  .response-item {
+    background: #0d1117;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 14px 16px;
+    margin-bottom: 8px;
+  }
+
+  .response-trigger {
+    font-size: 12px;
+    color: var(--muted);
+    font-style: italic;
+    margin-bottom: 6px;
+  }
+
+  .response-text {
+    font-size: 13px;
+    color: #c8d0e4;
+    line-height: 1.7;
+    white-space: pre-wrap;
+  }
+
+  .copy-sales-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: transparent;
+    border: 1px solid var(--border);
+    color: var(--muted);
+    font-family: 'Bricolage Grotesque', sans-serif;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    padding: 7px 16px;
+    cursor: pointer;
+    border-radius: 2px;
+    transition: all 0.2s;
+    margin-top: 16px;
+  }
+
+  .copy-sales-btn:hover { border-color: var(--accent); color: var(--accent); }
+  .copy-sales-btn.copied { border-color: var(--accent2); color: var(--accent2); }
+</style>
+
+<div class="sales-section">
+
+  <div class="section-title" style="padding:0; margin-top:0;">
+    <div class="num" style="background: var(--accent3); color: #fff;">03</div>
+    <h2>Posts de Vente par Offre + Déclencheurs Émotionnels</h2>
+    <div class="divider"></div>
+  </div>
+
+  <div class="sales-intro" style="margin-top: 32px;">
+    <h2>La psychologie <span>qui conduit à l'achat</span></h2>
+    <p>Chaque offre a 2 posts de vente. Chaque post active une émotion précise chez l'artisan. En dessous de chaque post tu trouveras les réactions typiques et les réponses exactes à donner pour transformer chaque émotion en achat.</p>
+    <div class="emotion-legend">
+      <div class="emo-pill curiosity">🤔 Curiosité — questionner</div>
+      <div class="emo-pill frustration">😤 Frustration — déclencher</div>
+      <div class="emo-pill anger">😠 Énervement — retourner</div>
+      <div class="emo-pill trust">🤝 Confiance — conclure</div>
+    </div>
+  </div>
+
+  <!-- ==================== OFFRE 1 : CV ==================== -->
+  <div class="offer-group">
+    <div class="offer-group-title">
+      <div class="offer-icon cv">📄</div>
+      <div class="offer-meta">
+        <h3>CV Professionnel</h3>
+        <p>2 posts · Cible : artisans qui cherchent plus de clients sérieux</p>
+      </div>
+      <div class="offer-price-tag">5 000 F</div>
+    </div>
+
+    <!-- POST A -->
+    <div class="sales-card">
+      <div class="sales-card-header">
+        <span class="post-label post-a">📌 Post A — Douleur / Problème</span>
+        <span class="post-strategy">Stratégie : créer la prise de conscience</span>
+      </div>
+      <div class="sales-card-body">
+        <div class="post-sales-text" id="sp-cv-a">😬 Soyons honnêtes.
+
+Quand tu rencontres un client potentiel et qu'il te demande "vous avez quelque chose qui présente vos services ?" — tu lui envoies quoi ?
+
+Un simple message WhatsApp ?
+Un numéro de téléphone ?
+Rien du tout ?
+
+🔴 Voilà pourquoi beaucoup de bons artisans perdent des contrats face à des concurrents moins compétents mais mieux présentés.
+
+Un client qui ne te connaît pas va juger ta crédibilité en 30 secondes.
+Pas sur tes compétences — sur ce qu'il voit.
+
+Un CV professionnel, c'est pas juste un papier.
+C'est ton premier commercial. Disponible 24h/24, envoyé en un clic, et qui parle pour toi quand tu n'es pas là.
+
+💬 Toi, comment tu te présentes à un nouveau client aujourd'hui ? Réponds honnêtement 👇</div>
+        <button class="copy-sales-btn" onclick="copySalesPost('sp-cv-a', this)">📋 Copier le post</button>
+
+        <div style="margin-top:24px;">
+          <div class="emo-tabs-label">💡 Réactions du groupe & tes réponses :</div>
+          <div class="emo-tabs">
+            <div class="emo-tab curiosity active" data-post="cv-a" data-emo="curiosity">🤔 Curiosité</div>
+            <div class="emo-tab frustration" data-post="cv-a" data-emo="frustration">😤 Frustration</div>
+            <div class="emo-tab anger" data-post="cv-a" data-emo="anger">😠 Énervement</div>
+            <div class="emo-tab trust" data-post="cv-a" data-emo="trust">🤝 Confiance</div>
+          </div>
+
+          <div class="emo-panel default-open" data-post="cv-a" data-emo="curiosity">
+            <div class="emo-panel-inner curiosity">
+              <h4 class="curiosity">🤔 Curiosité — Il pose des questions</h4>
+              <div class="emo-triggers">
+                <div class="emo-trigger-title">Phrases typiques :</div>
+                <ul class="trigger-list">
+                  <li>"C'est quoi exactement un CV pour artisan ?"</li>
+                  <li>"Tu fais ça comment ?"</li>
+                  <li>"C'est différent d'un CV normal ?"</li>
+                </ul>
+              </div>
+              <div class="responses-title">Tes réponses :</div>
+              <div class="response-item">
+                <div class="response-trigger">→ "C'est quoi un CV artisan ?"</div>
+                <div class="response-text">C'est un document d'1 page qui résume ton nom, tes spécialités, ton expérience et tes contacts. Format professionnel, belle mise en page. Tu l'envoies à chaque prospect par WhatsApp — ça remplace le bouche-à-oreille flou par quelque chose de concret. Envoie-moi "CV" en privé je te montre un exemple.</div>
+              </div>
+              <div class="response-item">
+                <div class="response-trigger">→ "C'est combien ?"</div>
+                <div class="response-text">5 000 F CFA, livré en 24h. C'est le prix d'un petit repas — mais ça peut te faire gagner un contrat à 100 000 F. Tu veux qu'on commence ?</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="emo-panel" data-post="cv-a" data-emo="frustration">
+            <div class="emo-panel-inner frustration">
+              <h4 class="frustration">😤 Frustration — Il se reconnaît dans le problème</h4>
+              <div class="emo-triggers">
+                <div class="emo-trigger-title">Phrases typiques :</div>
+                <ul class="trigger-list">
+                  <li>"C'est vrai ça, les clients ne prennent pas au sérieux"</li>
+                  <li>"J'ai perdu un contrat comme ça la semaine passée"</li>
+                  <li>"Les gens pensent qu'on est des amateurs"</li>
+                </ul>
+              </div>
+              <div class="responses-title">Tes réponses :</div>
+              <div class="response-item">
+                <div class="response-trigger">→ Il exprime sa frustration face aux clients</div>
+                <div class="response-text">Et c'est exactement pour ça que j'ai créé cette offre. Ce n'est pas juste. Tu as les compétences, mais sans une présentation pro, les clients vont vers quelqu'un d'autre. Un CV bien fait change ça dès le premier envoi. Tu veux qu'on règle ça aujourd'hui ?</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="emo-panel" data-post="cv-a" data-emo="anger">
+            <div class="emo-panel-inner anger">
+              <h4 class="anger">😠 Énervement — Il remet en question l'utilité</h4>
+              <div class="emo-triggers">
+                <div class="emo-trigger-title">Phrases typiques :</div>
+                <ul class="trigger-list">
+                  <li>"Personne ne lit ces trucs-là"</li>
+                  <li>"Mes clients se foutent du CV, ils veulent le travail"</li>
+                  <li>"C'est du gaspillage d'argent"</li>
+                </ul>
+              </div>
+              <div class="responses-title">Tes réponses :</div>
+              <div class="response-item">
+                <div class="response-trigger">→ "Personne ne lit ça"</div>
+                <div class="response-text">Tu as raison — un mauvais CV, personne ne le lit. Mais un CV bien fait avec tes vraies spécialités et une belle présentation, le client le garde dans ses contacts et te rappelle 3 mois plus tard. Mon frère électricien l'a fait — depuis, ses clients le recommandent avec le document. C'est différent. Envoi-moi un message privé je te montre son exemple concret.</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="emo-panel" data-post="cv-a" data-emo="trust">
+            <div class="emo-panel-inner trust">
+              <h4 class="trust">🤝 Confiance — Il est presque convaincu</h4>
+              <div class="emo-triggers">
+                <div class="emo-trigger-title">Phrases typiques :</div>
+                <ul class="trigger-list">
+                  <li>"Tu peux me faire ça cette semaine ?"</li>
+                  <li>"Je veux voir un exemple avant"</li>
+                  <li>"Comment ça se passe exactement ?"</li>
+                </ul>
+              </div>
+              <div class="responses-title">Tes réponses :</div>
+              <div class="response-item">
+                <div class="response-trigger">→ "Je veux voir un exemple"</div>
+                <div class="response-text">Parfait. Envoie-moi un message privé maintenant — je te partage un exemple réalisé pour un électricien. Et si ça te convient, on démarre aujourd'hui même. 5 000 F, livré demain.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- POST B -->
+    <div class="sales-card">
+      <div class="sales-card-header">
+        <span class="post-label post-b">📌 Post B — Résultat / Preuve sociale</span>
+        <span class="post-strategy">Stratégie : prouver avec un exemple réel</span>
+      </div>
+      <div class="sales-card-body">
+        <div class="post-sales-text" id="sp-cv-b">📖 Petite histoire vraie.
+
+Un électricien de Douala travaille depuis 5 ans.
+Bon travail, clients satisfaits, mais toujours à chercher le prochain contrat.
+
+On a créé son CV professionnel ensemble.
+1 page. Son nom, ses spécialités, ses années d'expérience, sa zone d'intervention, ses contacts.
+
+Ce qu'il s'est passé après :
+→ Il l'envoie maintenant avant chaque rendez-vous
+→ Les clients arrivent déjà convaincus
+→ Ses anciens clients le recommandent EN ENVOYANT le document
+
+Il m'a dit : "Les gens me prennent autrement maintenant."
+
+💡 5 000 F. 24h. Et tu ne te présentes plus jamais les mains vides.
+
+🔥 Qui veut le même résultat ? Répondez "JE VEUX" ici ou en message privé 👇</div>
+        <button class="copy-sales-btn" onclick="copySalesPost('sp-cv-b', this)">📋 Copier le post</button>
+
+        <div style="margin-top:24px;">
+          <div class="emo-tabs-label">💡 Réactions du groupe & tes réponses :</div>
+          <div class="emo-tabs">
+            <div class="emo-tab curiosity active" data-post="cv-b" data-emo="curiosity">🤔 Curiosité</div>
+            <div class="emo-tab frustration" data-post="cv-b" data-emo="frustration">😤 Frustration</div>
+            <div class="emo-tab anger" data-post="cv-b" data-emo="anger">😠 Énervement</div>
+            <div class="emo-tab trust" data-post="cv-b" data-emo="trust">🤝 Confiance</div>
+          </div>
+
+          <div class="emo-panel default-open" data-post="cv-b" data-emo="curiosity">
+            <div class="emo-panel-inner curiosity">
+              <h4 class="curiosity">🤔 Curiosité</h4>
+              <div class="emo-triggers"><div class="emo-trigger-title">Phrases typiques :</div>
+                <ul class="trigger-list"><li>"C'est quel type d'électricien ?"</li><li>"Il a eu combien de nouveaux clients ?"</li></ul>
+              </div>
+              <div class="responses-title">Tes réponses :</div>
+              <div class="response-item">
+                <div class="response-trigger">→ Questions sur l'histoire</div>
+                <div class="response-text">C'est un électricien résidentiel basé à Douala, comme beaucoup d'entre vous. Le plus important c'est pas le nombre de nouveaux clients — c'est que chaque client qu'il avait déjà est devenu un ambassadeur avec le document en main. Veux-tu voir le résultat ? Message privé.</div>
+              </div>
+            </div>
+          </div>
+          <div class="emo-panel" data-post="cv-b" data-emo="frustration">
+            <div class="emo-panel-inner frustration">
+              <h4 class="frustration">😤 Frustration</h4>
+              <div class="emo-triggers"><div class="emo-trigger-title">Phrases typiques :</div>
+                <ul class="trigger-list"><li>"C'est exactement mon problème ça"</li><li>"Moi aussi les gens ne me prennent pas au sérieux"</li></ul>
+              </div>
+              <div class="responses-title">Tes réponses :</div>
+              <div class="response-item">
+                <div class="response-trigger">→ Il se reconnaît dans l'histoire</div>
+                <div class="response-text">Ça veut dire que la solution est exactement la même pour toi. On a déjà le modèle, le processus est rodé. En 24h ton problème est réglé. 5 000 F c'est l'investissement le plus rentable que tu peux faire ce mois. On commence quand tu veux.</div>
+              </div>
+            </div>
+          </div>
+          <div class="emo-panel" data-post="cv-b" data-emo="anger">
+            <div class="emo-panel-inner anger">
+              <h4 class="anger">😠 Énervement</h4>
+              <div class="emo-triggers"><div class="emo-trigger-title">Phrases typiques :</div>
+                <ul class="trigger-list"><li>"Tu nous vends du rêve"</li><li>"C'est pas un CV qui change les choses"</li></ul>
+              </div>
+              <div class="responses-title">Tes réponses :</div>
+              <div class="response-item">
+                <div class="response-trigger">→ Il remet en question la réalité</div>
+                <div class="response-text">Je comprends le scepticisme — normal. C'est pour ça que je ne demande pas de me croire sur parole. Viens voir le document en message privé, regarde le travail concret, et décide après. Si tu n'es pas convaincu, pas de problème. Mais au moins tu auras vu par toi-même.</div>
+              </div>
+            </div>
+          </div>
+          <div class="emo-panel" data-post="cv-b" data-emo="trust">
+            <div class="emo-panel-inner trust">
+              <h4 class="trust">🤝 Confiance</h4>
+              <div class="emo-triggers"><div class="emo-trigger-title">Phrases typiques :</div>
+                <ul class="trigger-list"><li>"Je veux le même"</li><li>"Comment on fait ?"</li></ul>
+              </div>
+              <div class="responses-title">Tes réponses :</div>
+              <div class="response-item">
+                <div class="response-trigger">→ Il est prêt à commander</div>
+                <div class="response-text">Parfait ! Envoie-moi un message privé avec : ton prénom, ta spécialité et ta ville. Je te prépare le brief. Acompte de 2 500 F pour démarrer (Orange Money / MTN), le reste à la livraison demain. Simple et rapide 💪</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== OFFRE 2 : CATALOGUE ==================== -->
+  <div class="offer-group">
+    <div class="offer-group-title">
+      <div class="offer-icon cat">📦</div>
+      <div class="offer-meta">
+        <h3>Catalogue de Services</h3>
+        <p>2 posts · Cible : artisans qui veulent montrer leur travail visuellement</p>
+      </div>
+      <div class="offer-price-tag" style="color: var(--accent2);">10 000 F</div>
+    </div>
+
+    <div class="sales-card">
+      <div class="sales-card-header">
+        <span class="post-label post-a">📌 Post A — Le problème invisible</span>
+        <span class="post-strategy">Stratégie : révéler ce que les clients pensent sans le dire</span>
+      </div>
+      <div class="sales-card-body">
+        <div class="post-sales-text" id="sp-cat-a">🧠 Ce que ton client pense mais ne te dit jamais :
+
+"Il fait quoi exactement ce type ?"
+"C'est combien ses prix à peu près ?"
+"Est-ce qu'il fait ce dont j'ai besoin ?"
+
+Et parce qu'il ne trouve pas les réponses rapidement...
+Il appelle quelqu'un d'autre.
+
+📌 Le catalogue de services, c'est la réponse à toutes ces questions — envoyée AVANT que le client pense à partir.
+
+Imagine envoyer un beau document visuel avec :
+✅ Tes services listés clairement
+✅ Des exemples de travaux réalisés
+✅ Tes tarifs indicatifs
+✅ Ta zone d'intervention
+✅ Tes contacts directs
+
+Le client reçoit ça → il comprend immédiatement → il te rappelle.
+
+🔥 Vous perdez combien de clients par semaine à cause de ça ?
+Répondez un chiffre honnête 👇</div>
+        <button class="copy-sales-btn" onclick="copySalesPost('sp-cat-a', this)">📋 Copier le post</button>
+
+        <div style="margin-top:24px;">
+          <div class="emo-tabs-label">💡 Réactions du groupe & tes réponses :</div>
+          <div class="emo-tabs">
+            <div class="emo-tab curiosity active" data-post="cat-a" data-emo="curiosity">🤔 Curiosité</div>
+            <div class="emo-tab frustration" data-post="cat-a" data-emo="frustration">😤 Frustration</div>
+            <div class="emo-tab anger" data-post="cat-a" data-emo="anger">😠 Énervement</div>
+            <div class="emo-tab trust" data-post="cat-a" data-emo="trust">🤝 Confiance</div>
+          </div>
+          <div class="emo-panel default-open" data-post="cat-a" data-emo="curiosity">
+            <div class="emo-panel-inner curiosity">
+              <h4 class="curiosity">🤔 Curiosité</h4>
+              <div class="emo-triggers"><div class="emo-trigger-title">Phrases typiques :</div>
+                <ul class="trigger-list"><li>"À quoi ça ressemble concrètement ?"</li><li>"Tu mets quoi dedans ?"</li></ul>
+              </div>
+              <div class="responses-title">Tes réponses :</div>
+              <div class="response-item">
+                <div class="response-trigger">→ Il veut voir le contenu</div>
+                <div class="response-text">Le catalogue c'est 4 à 6 visuels au format image WhatsApp. Page 1 : présentation générale. Pages 2-4 : tes services détaillés avec photos. Page 5 : tes tarifs et zone. Page 6 : tes contacts. Tout ça avec tes couleurs et ton style. Envoie-moi "CATALOGUE" en privé je te montre un vrai exemple.</div>
+              </div>
+            </div>
+          </div>
+          <div class="emo-panel" data-post="cat-a" data-emo="frustration">
+            <div class="emo-panel-inner frustration">
+              <h4 class="frustration">😤 Frustration</h4>
+              <div class="emo-triggers"><div class="emo-trigger-title">Phrases typiques :</div>
+                <ul class="trigger-list"><li>"C'est exactement ce que je vis tous les jours"</li><li>"J'ai perdu 2 clients cette semaine pour ça"</li></ul>
+              </div>
+              <div class="responses-title">Tes réponses :</div>
+              <div class="response-item">
+                <div class="response-trigger">→ Il compte ses clients perdus</div>
+                <div class="response-text">2 clients perdus par semaine × 4 semaines = 8 clients par mois. Si chaque client vaut 20 000 F minimum, tu perds 160 000 F/mois à cause d'un document qui coûte 10 000 F une seule fois. Le calcul est simple. On règle ça aujourd'hui ?</div>
+              </div>
+            </div>
+          </div>
+          <div class="emo-panel" data-post="cat-a" data-emo="anger">
+            <div class="emo-panel-inner anger">
+              <h4 class="anger">😠 Énervement</h4>
+              <div class="emo-triggers"><div class="emo-trigger-title">Phrases typiques :</div>
+                <ul class="trigger-list"><li>"10 000 F c'est trop cher pour des images"</li><li>"Je peux faire ça moi-même avec Canva"</li></ul>
+              </div>
+              <div class="responses-title">Tes réponses :</div>
+              <div class="response-item">
+                <div class="response-trigger">→ "Je peux le faire moi-même"</div>
+                <div class="response-text">Absolument — et c'est ce que j'ai expliqué dans le post sur Canva. Si tu veux le faire toi-même, je t'encourage. Mais si après 2h d'essai le résultat ne te convainc pas, reviens me voir. 10 000 F pour un pro qui livre en 48h, c'est le prix de 2 heures de ton propre temps — lequel est plus précieux pour toi ?</div>
+              </div>
+            </div>
+          </div>
+          <div class="emo-panel" data-post="cat-a" data-emo="trust">
+            <div class="emo-panel-inner trust">
+              <h4 class="trust">🤝 Confiance</h4>
+              <div class="emo-triggers"><div class="emo-trigger-title">Phrases typiques :</div>
+                <ul class="trigger-list"><li>"Je suis intéressé"</li><li>"On peut démarrer quand ?"</li></ul>
+              </div>
+              <div class="responses-title">Tes réponses :</div>
+              <div class="response-item">
+                <div class="response-trigger">→ Il veut démarrer</div>
+                <div class="response-text">Super ! En message privé envoie-moi : tes services principaux, 2-3 photos de tes travaux si tu en as, et ta zone d'intervention. Acompte 5 000 F pour démarrer. Livraison dans 48h avec 2 révisions gratuites. On y va 🚀</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sales-card">
+      <div class="sales-card-header">
+        <span class="post-label post-b">📌 Post B — Démonstration visuelle</span>
+        <span class="post-strategy">Stratégie : faire rêver avec le résultat final</span>
+      </div>
+      <div class="sales-card-body">
+        <div class="post-sales-text" id="sp-cat-b">📲 Imagine cette scène.
+
+Un client t'appelle pour un devis.
+Au lieu de lui expliquer à l'oral tout ce que tu fais...
+
+Tu lui envoies simplement ton catalogue en un clic.
+
+Il reçoit 6 images nettes et professionnelles.
+Il voit tes services, tes exemples, tes tarifs.
+Il comprend tout en 60 secondes.
+Il te rappelle en disant : "Je prends."
+
+C'est exactement ce que j'ai créé pour les artisans de ce groupe.
+
+📦 Un catalogue de 4 à 6 visuels :
+→ Personnalisé à votre activité
+→ Vos couleurs, votre style
+→ Format parfait pour WhatsApp
+→ Livré en 48h
+
+💰 10 000 F. Une seule fois. Tu l'utilises pendant des années.
+
+📸 Je partage bientôt un exemple ici.
+En attendant, répondez : "CATALOGUE" si vous voulez être les premiers à voir 👇</div>
+        <button class="copy-sales-btn" onclick="copySalesPost('sp-cat-b', this)">📋 Copier le post</button>
+
+        <div style="margin-top:24px;">
+          <div class="emo-tabs-label">💡 Réactions du groupe & tes réponses :</div>
+          <div class="emo-tabs">
+            <div class="emo-tab curiosity active" data-post="cat-b" data-emo="curiosity">🤔 Curiosité</div>
+            <div class="emo-tab frustration" data-post="cat-b" data-emo="frustration">😤 Frustration</div>
+            <div class="emo-tab anger" data-post="cat-b" data-emo="anger">😠 Énervement</div>
+            <div class="emo-tab trust" data-post="cat-b" data-emo="trust">🤝 Confiance</div>
+          </div>
+          <div class="emo-panel default-open" data-post="cat-b" data-emo="curiosity">
+            <div class="emo-panel-inner curiosity">
+              <h4 class="curiosity">🤔 Curiosité</h4>
+              <div class="emo-triggers"><div class="emo-trigger-title">Phrases typiques :</div>
+                <ul class="trigger-list"><li>"CATALOGUE"</li><li>"Je veux voir l'exemple"</li></ul>
+              </div>
+              <div class="responses-title">Tes réponses :</div>
+              <div class="response-item">
+                <div class="response-trigger">→ Il répond "CATALOGUE"</div>
+                <div class="response-text">Bien reçu ! Je t'envoie l'exemple en message privé maintenant. Regarde bien les détails — et dis-moi ce que tu penses de ta propre version. On peut discuter sans engagement 👍</div>
+              </div>
+            </div>
+          </div>
+          <div class="emo-panel" data-post="cat-b" data-emo="frustration">
+            <div class="emo-panel-inner frustration">
+              <h4 class="frustration">😤 Frustration</h4>
+              <div class="emo-triggers"><div class="emo-trigger-title">Phrases typiques :</div>
+                <ul class="trigger-list"><li>"Mes clients me disent toujours qu'ils vont rappeler et ne rappellent pas"</li></ul>
+              </div>
+              <div class="responses-title">Tes réponses :</div>
+              <div class="response-item">
+                <div class="response-trigger">→ Le classique "je vous rappelle"</div>
+                <div class="response-text">Ce "je vous rappelle" c'est souvent parce que le client n'a rien de concret entre les mains pour se souvenir de toi. Un catalogue qu'il garde dans sa galerie, c'est une présence permanente dans son téléphone. La prochaine fois il retrouve tes infos en 2 secondes et te rappelle vraiment.</div>
+              </div>
+            </div>
+          </div>
+          <div class="emo-panel" data-post="cat-b" data-emo="anger">
+            <div class="emo-panel-inner anger">
+              <h4 class="anger">😠 Énervement</h4>
+              <div class="emo-triggers"><div class="emo-trigger-title">Phrases typiques :</div>
+                <ul class="trigger-list"><li>"Les clients cherchent seulement les moins chers, pas les plus professionnels"</li></ul>
+              </div>
+              <div class="responses-title">Tes réponses :</div>
+              <div class="response-item">
+                <div class="response-trigger">→ Il pense que le prix prime toujours</div>
+                <div class="response-text">Les clients qui cherchent le moins cher — tu ne peux pas les gagner et tu ne veux pas les avoir. Mais les clients qui cherchent quelqu'un de sérieux, eux regardent la présentation. Un catalogue professionnel te positionne automatiquement dans la catégorie "sérieux". Ce sont ces clients-là qui paient bien et recommandent. C'est eux qu'on cible.</div>
+              </div>
+            </div>
+          </div>
+          <div class="emo-panel" data-post="cat-b" data-emo="trust">
+            <div class="emo-panel-inner trust">
+              <h4 class="trust">🤝 Confiance</h4>
+              <div class="emo-triggers"><div class="emo-trigger-title">Phrases typiques :</div>
+                <ul class="trigger-list"><li>"J'ai vu l'exemple, c'est propre"</li><li>"Tu peux faire le mien cette semaine ?"</li></ul>
+              </div>
+              <div class="responses-title">Tes réponses :</div>
+              <div class="response-item">
+                <div class="response-trigger">→ Il valide la qualité et veut commander</div>
+                <div class="response-text">Cette semaine c'est possible, je bloque un créneau pour toi. Envoie-moi en privé : tes services + quelques photos de tes travaux + tes couleurs préférées si tu en as. Acompte 5 000 F et on démarre dans la journée 🔥</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== OFFRE 3 : PACK ==================== -->
+  <div class="offer-group">
+    <div class="offer-group-title">
+      <div class="offer-icon pack">🚀</div>
+      <div class="offer-meta">
+        <h3>Pack Complet</h3>
+        <p>2 posts · Cible : artisans prêts à investir sérieusement</p>
+      </div>
+      <div class="offer-price-tag" style="color: #a78bfa;">20 000 F</div>
+    </div>
+
+    <div class="sales-card">
+      <div class="sales-card-header">
+        <span class="post-label post-a">📌 Post A — L'urgence du changement</span>
+        <span class="post-strategy">Stratégie : montrer le coût de l'inaction</span>
+      </div>
+      <div class="sales-card-body">
+        <div class="post-sales-text" id="sp-pack-a">⏰ Combien de temps encore tu vas attendre ?
+
+5 ans de métier.
+Des dizaines de travaux réalisés.
+Des clients satisfaits.
+
+Et pourtant... tu cherches encore le prochain contrat comme au premier jour.
+
+Ce n'est pas un problème de compétences.
+C'est un problème de visibilité et de présentation.
+
+🎯 En une journée, tu peux tout changer :
+
+✅ CV professionnel → tu arrives préparé à chaque rencontre
+✅ Catalogue de services → tu envoies, le client comprend, il paie
+✅ Bio WhatsApp optimisée → ta première impression est parfaite avant même le premier mot
+
+C'est le Pack Complet. 20 000 F. Livré en 3 jours.
+
+📊 Réfléchis : un seul nouveau contrat grâce à cette présentation te rembourse 5 à 10 fois l'investissement.
+
+❓ La vraie question c'est : combien ça te coûte de ne PAS le faire ce mois-ci ?
+
+Répondez honnêtement 👇</div>
+        <button class="copy-sales-btn" onclick="copySalesPost('sp-pack-a', this)">📋 Copier le post</button>
+
+        <div style="margin-top:24px;">
+          <div class="emo-tabs-label">💡 Réactions du groupe & tes réponses :</div>
+          <div class="emo-tabs">
+            <div class="emo-tab curiosity active" data-post="pack-a" data-emo="curiosity">🤔 Curiosité</div>
+            <div class="emo-tab frustration" data-post="pack-a" data-emo="frustration">😤 Frustration</div>
+            <div class="emo-tab anger" data-post="pack-a" data-emo="anger">😠 Énervement</div>
+            <div class="emo-tab trust" data-post="pack-a" data-emo="trust">🤝 Confiance</div>
+          </div>
+          <div class="emo-panel default-open" data-post="pack-a" data-emo="curiosity">
+            <div class="emo-panel-inner curiosity">
+              <h4 class="curiosity">🤔 Curiosité</h4>
+              <div class="emo-triggers"><div class="emo-trigger-title">Phrases typiques :</div>
+                <ul class="trigger-list"><li>"C'est quoi la bio WhatsApp optimisée ?"</li><li>"Le pack c'est quoi exactement ?"</li></ul>
+              </div>
+              <div class="responses-title">Tes réponses :</div>
+              <div class="response-item">
+                <div class="response-trigger">→ Il veut comprendre le détail</div>
+                <div class="response-text">La bio WhatsApp c'est la description sous ton nom — la plupart des artisans la laissent vide ou écrivent "disponible". Moi je la transforme en mini présentation : ta spécialité + ta zone + un call to action. Quand quelqu'un voit ton profil, il sait immédiatement qui tu es et quoi faire. Avec le CV + le catalogue, c'est une identité digitale complète. Message privé pour les détails 📲</div>
+              </div>
+            </div>
+          </div>
+          <div class="emo-panel" data-post="pack-a" data-emo="frustration">
+            <div class="emo-panel-inner frustration">
+              <h4 class="frustration">😤 Frustration</h4>
+              <div class="emo-triggers"><div class="emo-trigger-title">Phrases typiques :</div>
+                <ul class="trigger-list"><li>"C'est vrai, rien ne change depuis des années"</li><li>"Je travaille beaucoup mais le compte ne suit pas"</li></ul>
+              </div>
+              <div class="responses-title">Tes réponses :</div>
+              <div class="response-item">
+                <div class="response-trigger">→ Il exprime la stagnation</div>
+                <div class="response-text">Ce que tu décris c'est le piège de l'artisan invisible : tu travailles pour les clients que tu as déjà mais tu n'en attires pas de nouveaux. Le pack complet casse ce cycle. Une fois en place tu n'as plus besoin de courir — les clients comprennent ta valeur avant même de te parler. C'est le changement structurel dont tu parles depuis des années. 20 000 F pour sortir du piège.</div>
+              </div>
+            </div>
+          </div>
+          <div class="emo-panel" data-post="pack-a" data-emo="anger">
+            <div class="emo-panel-inner anger">
+              <h4 class="anger">😠 Énervement</h4>
+              <div class="emo-triggers"><div class="emo-trigger-title">Phrases typiques :</div>
+                <ul class="trigger-list"><li>"20 000 F c'est beaucoup pour des documents"</li><li>"Le digital c'est pas pour nous les artisans"</li></ul>
+              </div>
+              <div class="responses-title">Tes réponses :</div>
+              <div class="response-item">
+                <div class="response-trigger">→ "C'est trop cher / pas pour nous"</div>
+                <div class="response-text">Je respecte cette opinion — et elle était vraie il y a 10 ans. Aujourd'hui un maçon à Douala qui a un catalogue WhatsApp pro décroche des chantiers que ses concurrents ne voient même pas. Je ne vends pas du digital pour faire moderne. Je vends plus de contrats pour toi. Si 20 000 F est trop, commence par le catalogue à 10 000 F. Mais ne reste pas les mains vides.</div>
+              </div>
+            </div>
+          </div>
+          <div class="emo-panel" data-post="pack-a" data-emo="trust">
+            <div class="emo-panel-inner trust">
+              <h4 class="trust">🤝 Confiance</h4>
+              <div class="emo-triggers"><div class="emo-trigger-title">Phrases typiques :</div>
+                <ul class="trigger-list"><li>"Je veux le pack complet"</li><li>"Comment on commence ?"</li></ul>
+              </div>
+              <div class="responses-title">Tes réponses :</div>
+              <div class="response-item">
+                <div class="response-trigger">→ Il est décidé</div>
+                <div class="response-text">Excellent décision. Message privé maintenant — on fait le brief ensemble en 10 minutes. Acompte de 10 000 F pour démarrer (Orange / MTN). CV livré J+1, Catalogue J+2, Bio configurée J+3. Dans 3 jours tu es un artisan avec une identité digitale complète 💪</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sales-card">
+      <div class="sales-card-header">
+        <span class="post-label post-b">📌 Post B — Comparaison / Valeur perçue</span>
+        <span class="post-strategy">Stratégie : rendre le prix ridicule par comparaison</span>
+      </div>
+      <div class="sales-card-body">
+        <div class="post-sales-text" id="sp-pack-b">💡 Une question rapide pour les membres du groupe.
+
+Combien vous dépensez en 1 mois pour :
+→ Le carburant de votre moto ou voiture ? 
+→ Les outils et consommables ?
+→ La recharge téléphone et internet ?
+
+Facilement 30 000 F… 50 000 F… parfois plus.
+
+Et c'est normal — ce sont des investissements pour travailler.
+
+Maintenant : combien vous avez investi cette année dans votre IMAGE professionnelle ?
+
+...
+
+Pour 20 000 F — une seule fois — vous obtenez :
+📄 Un CV professionnel qui vous représente partout
+📦 Un catalogue complet de vos services
+📲 Une bio WhatsApp qui transforme les curieux en clients
+
+Vos outils s'usent. Votre identité digitale, elle, travaille pour vous 24h/24 sans jamais s'arrêter.
+
+🤔 Qu'est-ce qui vous a empêché d'investir dans votre image jusqu'ici ?
+Répondez franchement — vos réponses m'aident à mieux vous servir 👇</div>
+        <button class="copy-sales-btn" onclick="copySalesPost('sp-pack-b', this)">📋 Copier le post</button>
+
+        <div style="margin-top:24px;">
+          <div class="emo-tabs-label">💡 Réactions du groupe & tes réponses :</div>
+          <div class="emo-tabs">
+            <div class="emo-tab curiosity active" data-post="pack-b" data-emo="curiosity">🤔 Curiosité</div>
+            <div class="emo-tab frustration" data-post="pack-b" data-emo="frustration">😤 Frustration</div>
+            <div class="emo-tab anger" data-post="pack-b" data-emo="anger">😠 Énervement</div>
+            <div class="emo-tab trust" data-post="pack-b" data-emo="trust">🤝 Confiance</div>
+          </div>
+          <div class="emo-panel default-open" data-post="pack-b" data-emo="curiosity">
+            <div class="emo-panel-inner curiosity">
+              <h4 class="curiosity">🤔 Curiosité</h4>
+              <div class="emo-triggers"><div class="emo-trigger-title">Phrases typiques :</div>
+                <ul class="trigger-list"><li>"Personne ne m'avait posé la question comme ça"</li><li>"C'est vrai que j'y ai jamais pensé"</li></ul>
+              </div>
+              <div class="responses-title">Tes réponses :</div>
+              <div class="response-item">
+                <div class="response-trigger">→ Il prend conscience pour la première fois</div>
+                <div class="response-text">C'est exactement le but du groupe — faire réfléchir différemment. L'image professionnelle c'est un investissement comme les autres, sauf qu'il ne s'use jamais. Quand tu es prêt à franchir le pas, je suis là. Message privé à tout moment.</div>
+              </div>
+            </div>
+          </div>
+          <div class="emo-panel" data-post="pack-b" data-emo="frustration">
+            <div class="emo-panel-inner frustration">
+              <h4 class="frustration">😤 Frustration</h4>
+              <div class="emo-triggers"><div class="emo-trigger-title">Phrases typiques :</div>
+                <ul class="trigger-list"><li>"J'avais pas l'argent avant"</li><li>"C'est difficile de tout gérer"</li></ul>
+              </div>
+              <div class="responses-title">Tes réponses :</div>
+              <div class="response-item">
+                <div class="response-trigger">→ Il évoque des contraintes financières passées</div>
+                <div class="response-text">Je comprends parfaitement. C'est pour ça que j'ai créé des offres séparées — tu peux commencer avec juste le CV à 5 000 F, puis ajouter le catalogue quand tu veux. Pas besoin de tout faire d'un coup. L'essentiel c'est de commencer. Tu veux qu'on voit ensemble ce qui est possible avec ton budget actuel ?</div>
+              </div>
+            </div>
+          </div>
+          <div class="emo-panel" data-post="pack-b" data-emo="anger">
+            <div class="emo-panel-inner anger">
+              <h4 class="anger">😠 Énervement</h4>
+              <div class="emo-triggers"><div class="emo-trigger-title">Phrases typiques :</div>
+                <ul class="trigger-list"><li>"C'est nous qui travaillons dur et c'est toujours nous qui payons"</li></ul>
+              </div>
+              <div class="responses-title">Tes réponses :</div>
+              <div class="response-item">
+                <div class="response-trigger">→ Sentiment d'injustice générale</div>
+                <div class="response-text">Tu as raison de ressentir ça — et c'est exactement cette injustice que je veux corriger. Les artisans font le vrai travail mais n'ont pas les outils pour le montrer. Mon rôle c'est de rééquilibrer ça. Ce que je propose ne va pas te rendre riche du jour au lendemain — mais ça va faire en sorte que ton travail soit enfin reconnu à sa vraie valeur. Et ça, tu le mérites.</div>
+              </div>
+            </div>
+          </div>
+          <div class="emo-panel" data-post="pack-b" data-emo="trust">
+            <div class="emo-panel-inner trust">
+              <h4 class="trust">🤝 Confiance</h4>
+              <div class="emo-triggers"><div class="emo-trigger-title">Phrases typiques :</div>
+                <ul class="trigger-list"><li>"Je veux faire le pack, j'ai l'argent"</li></ul>
+              </div>
+              <div class="responses-title">Tes réponses :</div>
+              <div class="response-item">
+                <div class="response-trigger">→ Il confirme qu'il veut le pack</div>
+                <div class="response-text">Parfait, on y va ! Message privé, je t'envoie le formulaire de brief (5 questions simples). Dès que je reçois le brief + l'acompte 10 000 F, je démarre immédiatement. Dans 3 jours tu as tout. Bienvenue dans la catégorie des artisans professionnels 🏆</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== OFFRE 4 : MISE À JOUR ==================== -->
+  <div class="offer-group">
+    <div class="offer-group-title">
+      <div class="offer-icon update">✏️</div>
+      <div class="offer-meta">
+        <h3>Mise à Jour / Révision</h3>
+        <p>2 posts · Cible : anciens clients + membres qui ont déjà un document</p>
+      </div>
+      <div class="offer-price-tag" style="color: #38bdf8;">3 000 F</div>
+    </div>
+
+    <div class="sales-card">
+      <div class="sales-card-header">
+        <span class="post-label post-a">📌 Post A — Le document qui vieillit mal</span>
+        <span class="post-strategy">Stratégie : créer l'urgence de la mise à jour</span>
+      </div>
+      <div class="sales-card-body">
+        <div class="post-sales-text" id="sp-upd-a">🗓 Question rapide pour ceux qui ont déjà un catalogue ou un CV :
+
+La dernière fois que vous l'avez mis à jour, c'était quand ?
+
+Il y a 6 mois ? 1 an ? Jamais depuis la création ?
+
+Voici ce qui se passe quand ton document est obsolète :
+❌ Tes nouveaux services ne sont pas dedans
+❌ Tes anciens tarifs créent de la confusion
+❌ Un client voit une info dépassée et perd confiance
+
+Un document professionnel qui ne reflète plus ta réalité d'aujourd'hui, c'est pire que pas de document du tout.
+
+🔧 La bonne nouvelle : une mise à jour coûte seulement 3 000 F et je la livre en 12h.
+
+Nouveaux services, nouveaux tarifs, nouvelle zone, nouveau numéro ?
+Tout ce qui a changé dans votre activité mérite d'être reflété.
+
+📩 Envoyez "MISE À JOUR" en message privé si c'est votre cas 👇</div>
+        <button class="copy-sales-btn" onclick="copySalesPost('sp-upd-a', this)">📋 Copier le post</button>
+
+        <div style="margin-top:24px;">
+          <div class="emo-tabs-label">💡 Réactions & réponses :</div>
+          <div class="emo-tabs">
+            <div class="emo-tab curiosity active" data-post="upd-a" data-emo="curiosity">🤔 Curiosité</div>
+            <div class="emo-tab frustration" data-post="upd-a" data-emo="frustration">😤 Frustration</div>
+            <div class="emo-tab anger" data-post="upd-a" data-emo="anger">😠 Énervement</div>
+            <div class="emo-tab trust" data-post="upd-a" data-emo="trust">🤝 Confiance</div>
+          </div>
+          <div class="emo-panel default-open" data-post="upd-a" data-emo="curiosity">
+            <div class="emo-panel-inner curiosity">
+              <h4 class="curiosity">🤔 Curiosité</h4>
+              <div class="emo-triggers"><div class="emo-trigger-title">Phrases typiques :</div><ul class="trigger-list"><li>"Ça marche avec n'importe quel document ?"</li></ul></div>
+              <div class="responses-title">Tes réponses :</div>
+              <div class="response-item"><div class="response-trigger">→ Il demande si ça s'applique à son cas</div><div class="response-text">Oui — si tu as un document que j'ai créé pour toi ou un autre que tu as eu ailleurs, je peux le modifier. Envoie-moi le fichier en message privé et dis-moi ce qui a changé. Je te confirme le délai et le tarif en 30 minutes.</div></div>
+            </div>
+          </div>
+          <div class="emo-panel" data-post="upd-a" data-emo="frustration">
+            <div class="emo-panel-inner frustration">
+              <h4 class="frustration">😤 Frustration</h4>
+              <div class="emo-triggers"><div class="emo-trigger-title">Phrases typiques :</div><ul class="trigger-list"><li>"J'ai changé mes prix mais mon catalogue dit encore l'ancien tarif"</li></ul></div>
+              <div class="responses-title">Tes réponses :</div>
+              <div class="response-item"><div class="response-trigger">→ Prix obsolètes dans son document</div><div class="response-text">C'est exactement le genre de problème qui fait fuir les clients — une incohérence entre ce que tu dis et ce qu'ils voient dans le document. 3 000 F et c'est corrigé aujourd'hui. Envoie-moi le fichier + les nouveaux tarifs en message privé maintenant.</div></div>
+            </div>
+          </div>
+          <div class="emo-panel" data-post="upd-a" data-emo="anger">
+            <div class="emo-panel-inner anger">
+              <h4 class="anger">😠 Énervement</h4>
+              <div class="emo-triggers"><div class="emo-trigger-title">Phrases typiques :</div><ul class="trigger-list"><li>"J'aurais dû demander ça depuis longtemps et tu charges encore"</li></ul></div>
+              <div class="responses-title">Tes réponses :</div>
+              <div class="response-item"><div class="response-trigger">→ Il pense que la mise à jour devrait être gratuite</div><div class="response-text">Je comprends — et pour les clients qui ont commandé chez moi récemment, la première mise à jour est offerte dans les 30 jours. Au-delà, 3 000 F c'est le tarif le plus bas que je puisse proposer pour un travail de qualité livré en 12h. C'est moins qu'un taxi Douala-Bonamoussadi. Mais à toi de voir.</div></div>
+            </div>
+          </div>
+          <div class="emo-panel" data-post="upd-a" data-emo="trust">
+            <div class="emo-panel-inner trust">
+              <h4 class="trust">🤝 Confiance</h4>
+              <div class="emo-triggers"><div class="emo-trigger-title">Phrases typiques :</div><ul class="trigger-list"><li>"MISE À JOUR"</li><li>"J'envoie le fichier"</li></ul></div>
+              <div class="responses-title">Tes réponses :</div>
+              <div class="response-item"><div class="response-trigger">→ Il est prêt</div><div class="response-text">Parfait ! Envoie le fichier + la liste des modifications souhaitées. Paiement de 3 000 F à réception du fichier corrigé. Si c'est urgent dis-le moi, je peux prioriser. 💪</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sales-card">
+      <div class="sales-card-header">
+        <span class="post-label post-b">📌 Post B — Fidélisation des anciens clients</span>
+        <span class="post-strategy">Stratégie : réactiver les clients qui ont déjà acheté</span>
+      </div>
+      <div class="sales-card-body">
+        <div class="post-sales-text" id="sp-upd-b">👋 Ce post s'adresse à ceux qui ont déjà un document professionnel.
+
+Félicitations — vous avez déjà fait le premier pas.
+
+Mais voici ce que j'observe souvent :
+Un catalogue créé il y a 6 mois avec les bons services de l'époque...
+Sauf que depuis vous avez ajouté de nouvelles prestations.
+Ou changé de zone.
+Ou revu vos prix.
+
+Et le document, lui, dit encore l'ancienne version.
+
+🎯 La solution : une mise à jour rapide.
+3 000 F. Livré en 12h.
+Votre document redevient exactement votre réalité d'aujourd'hui.
+
+💡 Astuce bonus : si vous avez obtenu de nouvelles compétences ou des formations depuis la création — ajoutez-les. Chaque nouveau atout dans votre document = plus de crédibilité.
+
+Qui dans le groupe a un document qui a besoin d'un rafraîchissement ? 👇</div>
+        <button class="copy-sales-btn" onclick="copySalesPost('sp-upd-b', this)">📋 Copier le post</button>
+
+        <div style="margin-top:24px;">
+          <div class="emo-tabs-label">💡 Réactions & réponses :</div>
+          <div class="emo-tabs">
+            <div class="emo-tab curiosity active" data-post="upd-b" data-emo="curiosity">🤔 Curiosité</div>
+            <div class="emo-tab frustration" data-post="upd-b" data-emo="frustration">😤 Frustration</div>
+            <div class="emo-tab anger" data-post="upd-b" data-emo="anger">😠 Énervement</div>
+            <div class="emo-tab trust" data-post="upd-b" data-emo="trust">🤝 Confiance</div>
+          </div>
+          <div class="emo-panel default-open" data-post="upd-b" data-emo="curiosity">
+            <div class="emo-panel-inner curiosity">
+              <h4 class="curiosity">🤔 Curiosité</h4>
+              <div class="emo-triggers"><div class="emo-trigger-title">Phrases typiques :</div><ul class="trigger-list"><li>"Est-ce que tu peux changer les photos aussi ?"</li></ul></div>
+              <div class="responses-title">Tes réponses :</div>
+              <div class="response-item"><div class="response-trigger">→ Il veut savoir ce qui est modifiable</div><div class="response-text">Oui — textes, photos, prix, couleurs, services, contacts. Tout peut être modifié. Envoie-moi le document et dis-moi précisément ce que tu veux changer. Si c'est beaucoup de modifications je te donne un devis ajusté, sinon c'est 3 000 F fixe.</div></div>
+            </div>
+          </div>
+          <div class="emo-panel" data-post="upd-b" data-emo="frustration">
+            <div class="emo-panel-inner frustration">
+              <h4 class="frustration">😤 Frustration</h4>
+              <div class="emo-triggers"><div class="emo-trigger-title">Phrases typiques :</div><ul class="trigger-list"><li>"J'ai perdu le fichier original"</li></ul></div>
+              <div class="responses-title">Tes réponses :</div>
+              <div class="response-item"><div class="response-trigger">→ Il a perdu son fichier</div><div class="response-text">Pas de problème — si tu es un ancien client j'ai peut-être encore le fichier de mon côté. Envoie-moi ton nom et la date approximative. Si je ne l'ai plus, on peut recréer quelque chose de encore mieux pour 7 000 F au lieu de 10 000 F — tarif fidélité. Message privé 📩</div></div>
+            </div>
+          </div>
+          <div class="emo-panel" data-post="upd-b" data-emo="anger">
+            <div class="emo-panel-inner anger">
+              <h4 class="anger">😠 Énervement</h4>
+              <div class="emo-triggers"><div class="emo-trigger-title">Phrases typiques :</div><ul class="trigger-list"><li>"À chaque fois que je reviens c'est payant"</li></ul></div>
+              <div class="responses-title">Tes réponses :</div>
+              <div class="response-item"><div class="response-trigger">→ Il se plaint du coût récurrent</div><div class="response-text">Je comprends — et c'est une vraie réflexion. Pour ça j'ai une offre annuelle en préparation : un abonnement à 15 000 F/an qui inclut toutes vos mises à jour illimitées. Si ça t'intéresse, dis-le moi en privé — tu seras parmi les premiers à en bénéficier.</div></div>
+            </div>
+          </div>
+          <div class="emo-panel" data-post="upd-b" data-emo="trust">
+            <div class="emo-panel-inner trust">
+              <h4 class="trust">🤝 Confiance</h4>
+              <div class="emo-triggers"><div class="emo-trigger-title">Phrases typiques :</div><ul class="trigger-list"><li>"J'envoie mon fichier ce soir"</li></ul></div>
+              <div class="responses-title">Tes réponses :</div>
+              <div class="response-item"><div class="response-trigger">→ Il confirme l'envoi</div><div class="response-text">Reçu 👍 Dès que j'ai le fichier et la liste des modifs je te donne une heure de livraison précise. Paiement à la livraison si tu es un client de retour. À tout à l'heure !</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== OFFRE 5 : SITE VITRINE ==================== -->
+  <div class="offer-group">
+    <div class="offer-group-title">
+      <div class="offer-icon site">🌐</div>
+      <div class="offer-meta">
+        <h3>Mini Site Vitrine</h3>
+        <p>2 posts · Cible : artisans ambitieux qui veulent se démarquer fortement</p>
+      </div>
+      <div class="offer-price-tag" style="color: var(--accent3);">30 000 F</div>
+    </div>
+
+    <div class="sales-card">
+      <div class="sales-card-header">
+        <span class="post-label post-a">📌 Post A — L'écart entre toi et la concurrence</span>
+        <span class="post-strategy">Stratégie : créer le désir de se démarquer</span>
+      </div>
+      <div class="sales-card-body">
+        <div class="post-sales-text" id="sp-site-a">🏆 Il y a deux types d'artisans dans ta ville.
+
+Le premier : quand on cherche son nom sur Google ou WhatsApp, on ne trouve rien.
+Il dépend du bouche-à-oreille. Un mois bien, un mois difficile.
+
+Le deuxième : il a un lien à partager. Un vrai site.
+"Voici mon site, vous verrez tous mes travaux là-bas."
+Le client consulte, est impressionné, appelle.
+
+Lequel tu penses que les grandes entreprises et les clients sérieux appellent en premier ?
+
+🌐 Un mini site vitrine c'est :
+→ Une page à ton nom sur Internet
+→ Tes services, tes photos, ton formulaire de contact
+→ Un lien à partager sur WhatsApp, Facebook, par SMS
+→ Disponible 24h/24 même quand tu dors
+
+30 000 F. Livré en 5 jours. Hébergement gratuit inclus.
+
+💬 Combien d'entre vous ont déjà un site web ? Répondez ici 👇
+(Je parie que la réponse va nous surprendre)</div>
+        <button class="copy-sales-btn" onclick="copySalesPost('sp-site-a', this)">📋 Copier le post</button>
+
+        <div style="margin-top:24px;">
+          <div class="emo-tabs-label">💡 Réactions & réponses :</div>
+          <div class="emo-tabs">
+            <div class="emo-tab curiosity active" data-post="site-a" data-emo="curiosity">🤔 Curiosité</div>
+            <div class="emo-tab frustration" data-post="site-a" data-emo="frustration">😤 Frustration</div>
+            <div class="emo-tab anger" data-post="site-a" data-emo="anger">😠 Énervement</div>
+            <div class="emo-tab trust" data-post="site-a" data-emo="trust">🤝 Confiance</div>
+          </div>
+          <div class="emo-panel default-open" data-post="site-a" data-emo="curiosity">
+            <div class="emo-panel-inner curiosity">
+              <h4 class="curiosity">🤔 Curiosité</h4>
+              <div class="emo-triggers"><div class="emo-trigger-title">Phrases typiques :</div><ul class="trigger-list"><li>"C'est un vrai site ou juste une page ?"</li><li>"On peut le modifier après ?"</li></ul></div>
+              <div class="responses-title">Tes réponses :</div>
+              <div class="response-item"><div class="response-trigger">→ Il questionne la vraie valeur du site</div><div class="response-text">C'est un vrai site web avec une adresse du type "ton-nom.vercel.app" ou un domaine personnalisé si tu veux investir un peu plus. Une page bien construite avec toutes tes sections : présentation, services, galerie photos, formulaire de contact. Je te forme aussi à envoyer des modifications simples toi-même. Message privé pour voir un exemple de site que j'ai créé.</div></div>
+            </div>
+          </div>
+          <div class="emo-panel" data-post="site-a" data-emo="frustration">
+            <div class="emo-panel-inner frustration">
+              <h4 class="frustration">😤 Frustration</h4>
+              <div class="emo-triggers"><div class="emo-trigger-title">Phrases typiques :</div><ul class="trigger-list"><li>"Les grandes sociétés nous écrasent, on n'a pas les mêmes moyens"</li></ul></div>
+              <div class="responses-title">Tes réponses :</div>
+              <div class="response-item"><div class="response-trigger">→ Sentiment d'inégalité face aux grandes structures</div><div class="response-text">C'est exactement le raisonnement à inverser. Les grandes sociétés ont des sites depuis 20 ans. Toi tu peux en avoir un dans 5 jours pour 30 000 F. Dans ton quartier, ta ville — être le seul électricien ou maçon avec un site web te place instantanément au-dessus. Pas besoin d'être une grande société. Il suffit d'être le plus visible de ta catégorie locale.</div></div>
+            </div>
+          </div>
+          <div class="emo-panel" data-post="site-a" data-emo="anger">
+            <div class="emo-panel-inner anger">
+              <h4 class="anger">😠 Énervement</h4>
+              <div class="emo-triggers"><div class="emo-trigger-title">Phrases typiques :</div><ul class="trigger-list"><li>"30 000 F c'est le prix d'une semaine de travail"</li><li>"Les Camerounais ne cherchent pas sur Internet"</li></ul></div>
+              <div class="responses-title">Tes réponses :</div>
+              <div class="response-item"><div class="response-trigger">→ "Les Camerounais n'utilisent pas Internet pour ça"</div><div class="response-text">En 2024, plus de 13 millions de Camerounais sont sur Internet. Et les clients qui cherchent un artisan sérieux pour un gros chantier — ils cherchent en ligne. Ce ne sont pas tous les clients, mais ce sont les MEILLEURS clients. Un seul contrat de 200 000 F grâce à ton site rembourse l'investissement 6 fois. Le vrai risque c'est de ne pas être là quand ils cherchent.</div></div>
+            </div>
+          </div>
+          <div class="emo-panel" data-post="site-a" data-emo="trust">
+            <div class="emo-panel-inner trust">
+              <h4 class="trust">🤝 Confiance</h4>
+              <div class="emo-triggers"><div class="emo-trigger-title">Phrases typiques :</div><ul class="trigger-list"><li>"Je veux un site"</li><li>"Tu peux montrer ton portfolio ?"</li></ul></div>
+              <div class="responses-title">Tes réponses :</div>
+              <div class="response-item"><div class="response-trigger">→ Il demande le portfolio / veut commander</div><div class="response-text">Avec plaisir — mon portfolio : songnia-tresor.vercel.app . Tu peux voir la qualité de mon travail directement. Pour ton site, message privé : on définit ensemble les pages, les couleurs, les photos à intégrer. Acompte 15 000 F pour démarrer. Dans 5 jours tu as ton adresse web à partager partout 🚀</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sales-card">
+      <div class="sales-card-header">
+        <span class="post-label post-b">📌 Post B — Le lien qui fait tout</span>
+        <span class="post-strategy">Stratégie : rendre l'avantage ultra concret</span>
+      </div>
+      <div class="sales-card-body">
+        <div class="post-sales-text" id="sp-site-b">📲 Imagine envoyer juste ça à ton prochain client :
+
+"Bonjour, voici mon site : electricien-kongo.vercel.app"
+
+Il ouvre. Il voit :
+✅ Qui tu es et depuis combien de temps tu travailles
+✅ La liste de tes services avec des détails
+✅ Des photos de tes réalisations
+✅ Un formulaire pour te contacter directement
+
+Il n'a plus de questions.
+Il n'a plus de doutes.
+Il te contacte.
+
+📌 C'est ça un mini site vitrine.
+Un lien. Un clic. Un client convaincu.
+
+Et ce lien tu peux le partager :
+→ Sur WhatsApp dans chaque conversation
+→ En signature de tes SMS professionnels
+→ Sur ta carte de visite imprimée
+→ Sur Facebook si tu as une page
+
+30 000 F. 5 jours. Un investissement qui travaille pour toi pendant des années.
+
+🤔 Qui voudrait avoir ce lien à partager dès la semaine prochaine ?
+Répondez "SITE" et je reviens vers vous 👇</div>
+        <button class="copy-sales-btn" onclick="copySalesPost('sp-site-b', this)">📋 Copier le post</button>
+
+        <div style="margin-top:24px;">
+          <div class="emo-tabs-label">💡 Réactions & réponses :</div>
+          <div class="emo-tabs">
+            <div class="emo-tab curiosity active" data-post="site-b" data-emo="curiosity">🤔 Curiosité</div>
+            <div class="emo-tab frustration" data-post="site-b" data-emo="frustration">😤 Frustration</div>
+            <div class="emo-tab anger" data-post="site-b" data-emo="anger">😠 Énervement</div>
+            <div class="emo-tab trust" data-post="site-b" data-emo="trust">🤝 Confiance</div>
+          </div>
+          <div class="emo-panel default-open" data-post="site-b" data-emo="curiosity">
+            <div class="emo-panel-inner curiosity">
+              <h4 class="curiosity">🤔 Curiosité</h4>
+              <div class="emo-triggers"><div class="emo-trigger-title">Phrases typiques :</div><ul class="trigger-list"><li>"SITE"</li><li>"C'est quoi l'adresse exactement ?"</li></ul></div>
+              <div class="responses-title">Tes réponses :</div>
+              <div class="response-item"><div class="response-trigger">→ Il répond "SITE"</div><div class="response-text">Bien reçu ! Je t'envoie un message privé maintenant avec un exemple et les détails. On va créer une adresse du type "ton-prénom-ton-métier.vercel.app" — gratuit, propre, professionnel. À tout de suite en privé 📲</div></div>
+            </div>
+          </div>
+          <div class="emo-panel" data-post="site-b" data-emo="frustration">
+            <div class="emo-panel-inner frustration">
+              <h4 class="frustration">😤 Frustration</h4>
+              <div class="emo-triggers"><div class="emo-trigger-title">Phrases typiques :</div><ul class="trigger-list"><li>"J'ai pas de bonnes photos de mes travaux"</li></ul></div>
+              <div class="responses-title">Tes réponses :</div>
+              <div class="response-item"><div class="response-trigger">→ Il pense ne pas avoir assez de contenu</div><div class="response-text">C'est le frein numéro 1 que j'entends — et pourtant c'est le plus facile à résoudre. Commence par prendre 5 photos de tes prochains chantiers avec ton téléphone. Même une bonne photo avant/après suffit pour démarrer. Si tu n'en as aucune, j'ai des solutions avec des photos génériques de qualité adaptées à ton métier. Message privé, on trouve une solution ensemble.</div></div>
+            </div>
+          </div>
+          <div class="emo-panel" data-post="site-b" data-emo="anger">
+            <div class="emo-panel-inner anger">
+              <h4 class="anger">😠 Énervement</h4>
+              <div class="emo-triggers"><div class="emo-trigger-title">Phrases typiques :</div><ul class="trigger-list"><li>"Et si ça marche pas, j'ai perdu 30 000 F"</li></ul></div>
+              <div class="responses-title">Tes réponses :</div>
+              <div class="response-item"><div class="response-trigger">→ Il a peur de perdre son argent</div><div class="response-text">La peur est légitime. Voilà ma garantie : je te montre le site avant que tu paies le solde. Tu valides d'abord, tu payes après. Si à la livraison le résultat ne te correspond pas, on corrige jusqu'à satisfaction. L'acompte de 15 000 F couvre le temps de travail — le reste se paie seulement quand tu dis "c'est exactement ce que je voulais". Le risque est minimal.</div></div>
+            </div>
+          </div>
+          <div class="emo-panel" data-post="site-b" data-emo="trust">
+            <div class="emo-panel-inner trust">
+              <h4 class="trust">🤝 Confiance</h4>
+              <div class="emo-triggers"><div class="emo-trigger-title">Phrases typiques :</div><ul class="trigger-list"><li>"Ok je veux qu'on démarre cette semaine"</li></ul></div>
+              <div class="responses-title">Tes réponses :</div>
+              <div class="response-item"><div class="response-trigger">→ Il veut démarrer cette semaine</div><div class="response-text">Parfait timing — je commence dès aujourd'hui. Message privé avec : ton prénom, ton métier, ta ville, 3 à 5 photos de tes travaux si tu en as. Acompte 15 000 F pour bloquer ton créneau cette semaine. Livraison vendredi — tu passes le week-end avec ton nouveau site 🔥</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+</body>
+</html>
